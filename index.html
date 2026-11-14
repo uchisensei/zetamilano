@@ -11,8 +11,8 @@
 <meta property="og:description" content="Dalla Prima Categoria alla Serie A. Gestisci ogni aspetto della squadra social più famosa d'Italia.">
 <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%230b0e14'/%3E%3Crect x='40' y='40' width='1120' height='550' rx='28' fill='none' stroke='%237c5cff' stroke-width='3'/%3E%3Ctext x='600' y='300' font-family='Arial' font-size='220' font-weight='900' fill='%237c5cff' text-anchor='middle'%3EZ%3C/text%3E%3Ctext x='600' y='430' font-family='Arial' font-size='54' font-weight='700' fill='%2322d3ee' text-anchor='middle'%3EZETA MILANO%3C/text%3E%3Ctext x='600' y='500' font-family='Arial' font-size='34' fill='%238b97ad' text-anchor='middle'%3ECalcio Manageriale%3C/text%3E%3C/svg%3E">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237c5cff'/%3E%3Ctext x='32' y='46' font-family='Arial' font-size='40' font-weight='900' fill='%230b0e14' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237c5cff'/%3E%3Ctext x='32' y='46' font-family='Arial' font-size='40' font-weight='900' fill='%230b0e14' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
 <title>Zeta Milano — Calcio Manageriale</title>
 <style>
 :root{
@@ -135,11 +135,17 @@ select,input{background:var(--panel2);border:1px solid var(--line);color:var(--t
 .start{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 30% 20%,rgba(124,92,255,.25),rgba(11,14,20,.96));display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
 .start.hide{display:none}
 .start .wrap{max-width:560px;width:100%;text-align:center;animation:pop .5s ease}
-.start .biglogo{width:96px;height:96px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:54px;color:#0b0e14;box-shadow:0 0 40px rgba(124,92,255,.55);margin-bottom:16px}
+.start .biglogo{position:relative;overflow:hidden;width:96px;height:96px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:54px;color:#0b0e14;box-shadow:0 0 40px rgba(124,92,255,.55);margin-bottom:16px}
+.start .biglogo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:inherit}
 .start h1{font-size:34px;background:linear-gradient(90deg,var(--accent2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
 .start .tagline{color:var(--muted);font-size:15px;margin-bottom:20px}
 .start .real-note{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:12px;color:var(--muted);text-align:left;margin-bottom:18px}
 .start .real-note b{color:var(--txt)}
+.avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1px solid var(--line);vertical-align:middle;margin-right:7px;background:var(--panel2);flex:0 0 auto}
+.avatar.lg{width:60px;height:60px;margin-right:12px}
+.start .disclaimer{background:rgba(251,191,36,.08);border:1px solid var(--warn);border-left:4px solid var(--warn);border-radius:10px;padding:11px 13px;font-size:11.5px;color:var(--muted);text-align:left;margin-bottom:18px;line-height:1.55}
+.start .disclaimer b{color:var(--warn)}
+.start .disclaimer .real{color:var(--txt)}
 .start .btns{display:flex;flex-direction:column;gap:10px}
 .start .facts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
 .start .facts span{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:11px;color:var(--muted)}
@@ -172,7 +178,7 @@ select,input{background:var(--panel2);border:1px solid var(--line);color:var(--t
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-<script src="config.js" defer></script>
+<script src="config.js"></script>
 </head>
 <body>
 <header class="top">
@@ -208,13 +214,17 @@ select,input{background:var(--panel2);border:1px solid var(--line);color:var(--t
 <!-- Schermata iniziale -->
 <div class="start hide" id="start">
   <div class="wrap">
-    <div class="biglogo">Z</div>
+    <div class="biglogo">Z<img id="biglogo-img" alt="Zeta Milano" onerror="this.remove()"></div>
     <h1>ZETA MILANO</h1>
     <div class="tagline">Calcio Manageriale · Dalla Prima Categoria alla Serie A</div>
     <div class="real-note">
       Sei il <b> Direttore Sportivo</b> della squadra social più famosa d'Italia. Gestisci rosa, staff, allenamenti, strutture, mercato, social, sponsor e investitori e portala in Serie A.<br><br>
       🟢 <b>Reale</b>: fondazione 22/05/2024, presidente A. Pellegrino, GM C. Brocchi, rosa e staff 2026/27, partner Como 1907.<br>
       🎮 <b>Finzione di gioco</b>: budget, follower, rating, valori, avversari, sponsor di gioco.
+    </div>
+    <div class="disclaimer">
+      <b>⚠️ Disclaimer</b> — Tutti gli <b>importi</b> (budget, ingaggi, valori di mercato, sponsor), le <b>quotazioni</b> (rating e overall dei giocatori), le <b>dichiarazioni</b> (interviste e dichiarazioni di giocatori, staff e dirigenza) e gli <b>avvenimenti</b> (risultati delle partite, infortuni, vicende di mercato e stagionali) sono <b>casuali e generati in automatico</b> dal motore del gioco. Non rappresentano fatti reali.<br>
+      <span class="real">Sono invece reali la rosa, lo staff, i dirigenti, la storia societaria e il partner Como 1907 (fonti: Wikipedia EN, zetaworld.it, tuttocampo.it).</span>
     </div>
     <div class="btns" id="start-btns"></div>
     <div class="facts">
@@ -241,7 +251,18 @@ const REAL_LINKS = Object.assign({
   tuttocampo: "https://www.tuttocampo.it/Lombardia/PrimaCategoria/GironeB/Squadra/FCZetaMilano/1238264",
   zetaworld: "https://zetaworld.it"
 }, _C.real || {});
+const PHOTOS = (_C.photos && typeof _C.photos==="object") ? _C.photos : {};
+const LOGO_URL = _C.logoUrl || "logo.png";
 const SUPA_PLACEHOLDER = "PASTE_";
+/* ---- Avatar giocatori/staff: foto reale (se in config.photos) o iniziali generate ---- */
+const AV_COLORS=["#7c5cff","#22d3ee","#34d399","#fbbf24","#f87171","#fcd34d","#a78bfa","#38bdf8"];
+const _avCache=[];
+function _ini(name){const t=String(name||'').replace(/[\u201c\u201d"].*$/,'').trim();const ps=t.split(/\s+/).filter(Boolean);const a=(ps[0]||'Z').charAt(0).toUpperCase();const b=ps.length>1?ps[1].charAt(0).toUpperCase():'';return (a+b)||'Z';}
+function _hue(s){let h=0;s=String(s);for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h;}
+function _avSvgData(name,size){const ini=_ini(name);const c=AV_COLORS[_hue(name)%AV_COLORS.length];const fs=Math.round(size*0.42);const svg="<svg xmlns='http://www.w3.org/2000/svg' width='"+size+"' height='"+size+"'><rect width='"+size+"' height='"+size+"' rx='"+(size/2)+"' fill='"+c+"'/><text x='50%' y='52%' dominant-baseline='central' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='"+fs+"' fill='#0b0e14'>"+ini+"</text></svg>";return "data:image/svg+xml,"+encodeURIComponent(svg);}
+function avatar(name,size){size=size||26;const url=PHOTOS[name];const fb=_avSvgData(name,size);if(url){const i=_avCache.length;_avCache.push(fb);return "<img class='avatar' src=\""+esc(url)+"\" alt=\""+esc(name)+"\" style='width:"+size+"px;height:"+size+"px' onerror=\"this.onerror=null;this.src=window._avCache["+i+"]\">";}return "<img class='avatar' src=\""+fb+"\" alt='' style='width:"+size+"px;height:"+size+"px'>";}
+window._avCache=_avCache;
+(function(){var el=document.getElementById('biglogo-img');if(el)el.src=LOGO_URL;})();
 let sb=null, cloudUser=null;
 function cloudReady(){return !!(sb && (SUPA.url||"").indexOf(SUPA_PLACEHOLDER)===-1);}
 function initSupabase(){
@@ -784,7 +805,7 @@ function renderRosa(){
     return `<tr style="${start?'background:rgba(124,92,255,.07)':''}">
       <td><span class="num" style="display:inline-block;width:24px;color:var(--muted)">${p.n}</span></td>
       <td><span class="tag pos-${p.pos}">${p.pos}</span></td>
-      <td class="pname">${p.name}${p.captain?' <span class="tag" style="border-color:var(--gold);color:var(--gold)">C</span>':''}${p.real?'':' <span class="tiny muted">(fiction)</span>'}</td>
+      <td class="pname">${avatar(p.name,26)}${p.name}${p.captain?' <span class="tag" style="border-color:var(--gold);color:var(--gold)">C</span>':''}${p.real?'':' <span class="tiny muted">(fiction)</span>'}</td>
       <td class="num">${p.age}</td>
       <td class="num"><span class="ovr-pill">${effOvr(p)}</span></td>
       <td class="num">${p.injured?'<span style="color:var(--bad)">🩹 '+p.injured+'s</span>':'-'}</td>
@@ -816,8 +837,8 @@ function renderRosa(){
 function playerDetail(name){
   const p=s.squad.find(x=>x.name===name);if(!p)return;
   const xi=bestXI();const start=xi.includes(p);
-  showModal(`<h3>${p.name}</h3>
-    <div class="sub">${posLabel(p.pos)} · ${p.age} anni · #${p.n}${p.captain?' · Capitano':''}${p.real?'':' · Finzione di gioco'}</div>
+  showModal(`<div class="row" style="align-items:center;gap:12px;margin-bottom:6px">${avatar(p.name,60)}<div><h3 style="margin:0">${p.name}</h3>
+    <div class="sub">${posLabel(p.pos)} · ${p.age} anni · #${p.n}${p.captain?' · Capitano':''}${p.real?'':' · Finzione di gioco'}</div></div></div>
     <div class="kv"><span>Overall effettivo</span><b>${effOvr(p)} (base ${p.ovr})</b></div>
     <div class="kv"><span>Morale</span><b>${Math.round(p.morale)}</b></div>
     <div class="kv"><span>Affaticamento</span><b>${Math.round(p.fatigue)}</b></div>
@@ -844,7 +865,7 @@ function offerSale(name){const p=s.squad.find(x=>x.name===name);if(!p)return;p.a
 /* ============================== TAB: STAFF ============================== */
 function renderStaff(){
   const rows=s.staff.map(x=>`<tr>
-    <td class="pname">${x.role}</td><td>${x.name}${x.real?'':' <span class="tiny muted">(fiction)</span>'}</td>
+    <td class="pname">${x.role}</td><td class="pname">${avatar(x.name,26)}${x.name}${x.real?'':' <span class="tiny muted">(fiction)</span>'}</td>
     <td class="num"><span class="ovr-pill">${x.rating}</span></td>
     <td class="num tiny muted">${x.wage?'€'+fmt(x.wage)+'/sett':'—'}</td>
     <td class="tiny muted">${x.note||effectDesc(x.effect)}</td>

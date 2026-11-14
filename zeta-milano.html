@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Zeta Milano — Calcio Manageriale: guida la squadra social più famosa d'Italia dalla Prima Categoria alla Serie A. Gestisci rosa, staff, allenamenti, strutture, mercato, social, sponsor e investitori.">
+<meta name="theme-color" content="#0b0e14">
+<meta name="author" content="Zeta Milano Fan Game">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zeta Milano — Calcio Manageriale">
+<meta property="og:description" content="Dalla Prima Categoria alla Serie A. Gestisci ogni aspetto della squadra social più famosa d'Italia.">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%230b0e14'/%3E%3Crect x='40' y='40' width='1120' height='550' rx='28' fill='none' stroke='%237c5cff' stroke-width='3'/%3E%3Ctext x='600' y='300' font-family='Arial' font-size='220' font-weight='900' fill='%237c5cff' text-anchor='middle'%3EZ%3C/text%3E%3Ctext x='600' y='430' font-family='Arial' font-size='54' font-weight='700' fill='%2322d3ee' text-anchor='middle'%3EZETA MILANO%3C/text%3E%3Ctext x='600' y='500' font-family='Arial' font-size='34' fill='%238b97ad' text-anchor='middle'%3ECalcio Manageriale%3C/text%3E%3C/svg%3E">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<title>Zeta Milano — Calcio Manageriale</title>
+<style>
+:root{
+  --bg:#0b0e14; --panel:#121622; --panel2:#161b2b; --line:#232a3d; --txt:#e6edf3;
+  --muted:#8b97ad; --accent:#7c5cff; --accent2:#22d3ee; --good:#34d399; --bad:#f87171;
+  --warn:#fbbf24; --gold:#fcd34d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5}
+a{color:var(--accent2)}
+button{font-family:inherit}
+h1,h2,h3,h4{margin:0 0 .4em;font-weight:700}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.tiny{font-size:11px}
+.center{text-align:center}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:10px}
+.grow{flex:1}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:var(--panel2);border:1px solid var(--line);color:var(--muted)}
+.tag.pos-P{background:#3b1d1d;color:#fca5a5;border-color:#7f1d1d}
+.tag.pos-D{background:#1e2b3a;color:#93c5fd;border-color:#1e3a8a}
+.tag.pos-C{background:#1d3a2a;color:#86efac;border-color:#14532d}
+.tag.pos-A{background:#3a2b1d;color:#fcd34d;border-color:#78350f}
+
+header.top{position:sticky;top:0;z-index:50;background:linear-gradient(90deg,rgba(124,92,255,.18),rgba(34,211,238,.10));border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.top-in{max-width:1280px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#0b0e14;flex:0 0 auto;box-shadow:0 0 18px rgba(124,92,255,.45)}
+.brand .club{font-weight:800;font-size:16px;line-height:1.1}
+.brand .club small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;flex:1;justify-content:flex-end}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5px 10px;font-size:12px;display:flex;flex-direction:column;line-height:1.15;min-width:78px}
+.chip b{font-size:14px}
+.chip.good b{color:var(--good)} .chip.bad b{color:var(--bad)} .chip.warn b{color:var(--warn)} .chip.gold b{color:var(--gold)}
+
+nav.tabs{max-width:1280px;margin:0 auto;padding:6px 14px;display:flex;gap:6px;overflow-x:auto;position:sticky;top:55px;z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.tabs button{background:transparent;border:1px solid transparent;color:var(--muted);padding:7px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;font-size:13px;font-weight:600}
+nav.tabs button:hover{color:var(--txt)}
+nav.tabs button.active{background:var(--panel);border-color:var(--line);color:var(--txt);box-shadow:inset 0 -2px 0 var(--accent)}
+
+main{max-width:1280px;margin:0 auto;padding:14px}
+.grid{display:grid;gap:12px}
+.grid.cols2{grid-template-columns:1fr 1fr}
+.grid.cols3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:880px){.grid.cols2,.grid.cols3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h3{font-size:15px;display:flex;align-items:center;gap:8px}
+.card .sub{color:var(--muted);font-size:12px;margin:-2px 0 10px}
+.btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:8px 13px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:linear-gradient(135deg,var(--accent),#5b3df0);border-color:transparent;color:#fff}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.good{background:linear-gradient(135deg,#059669,#047857);border-color:transparent;color:#fff}
+.btn.bad{background:linear-gradient(135deg,#b91c1c,#7f1d1d);border-color:transparent;color:#fff}
+.btn.warn{background:linear-gradient(135deg,#d97706,#b45309);border-color:transparent;color:#fff}
+.btn.sm{padding:5px 9px;font-size:12px}
+.btn.block{display:flex;width:100%;justify-content:center}
+
+.bar{height:8px;border-radius:5px;background:var(--panel2);overflow:hidden;border:1px solid var(--line)}
+.bar>span{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.bar.good>span{background:linear-gradient(90deg,#059669,#34d399)}
+.bar.warn>span{background:linear-gradient(90deg,#d97706,#fbbf24)}
+.bar.bad>span{background:linear-gradient(90deg,#b91c1c,#f87171)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+td.num,th.num{text-align:right}
+tbody tr:hover{background:var(--panel2)}
+.pname{font-weight:600}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.kv:last-child{border-bottom:0}
+
+.list-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);margin-bottom:8px}
+.list-item .num{font-weight:800;color:var(--muted);width:26px;text-align:center}
+.list-item .nm{font-weight:600}
+.list-item .meta{color:var(--muted);font-size:12px;margin-left:auto;display:flex;gap:10px;align-items:center}
+
+.modal{position:fixed;inset:0;background:rgba(3,6,12,.72);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:30px 14px;overflow:auto}
+.modal.show{display:flex}
+.modal .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:620px;width:100%;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.modal .box.wide{max-width:860px}
+.modal h2{font-size:19px}
+.modal .choices{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.choice{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 13px;cursor:pointer;text-align:left;font-weight:600;color:var(--txt)}
+.choice:hover{border-color:var(--accent);background:#1a2030}
+.choice small{display:block;color:var(--muted);font-weight:400;margin-top:3px}
+.event-result{margin-top:14px;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line)}
+
+.score{font-size:30px;font-weight:900;letter-spacing:1px}
+.score .vs{color:var(--muted);font-size:18px;margin:0 8px}
+.lineup{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.player-card{border:1px solid var(--line);border-radius:9px;padding:7px 9px;background:var(--panel2);font-size:12px}
+.player-card.start{border-color:var(--accent);box-shadow:0 0 0 1px rgba(124,92,255,.25)}
+.player-card .ph{display:flex;justify-content:space-between;align-items:center}
+.ovr-pill{font-weight:800;font-size:12px;padding:1px 7px;border-radius:6px;background:#000;color:var(--gold)}
+
+.notice{padding:9px 12px;border-radius:9px;font-size:13px;margin-bottom:8px}
+.notice.info{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.3);color:#a5f3fc}
+.notice.warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);color:#fde68a}
+.notice.bad{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3);color:#fecaca}
+.notice.good{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.3);color:#a7f3d0}
+
+.win-banner{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:200;background:radial-gradient(circle at center,rgba(124,92,255,.35),rgba(3,6,12,.9))}
+.win-banner.show{display:flex}
+.win-banner .wbox{text-align:center;animation:pop .6s ease}
+@keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.win-banner h1{font-size:40px;background:linear-gradient(90deg,var(--gold),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.empty{color:var(--muted);font-style:italic;padding:14px;text-align:center}
+footer.ft{max-width:1280px;margin:18px auto 30px;padding:0 14px;color:var(--muted);font-size:11px}
+footer.ft a{color:var(--muted)}
+.scroll{max-height:340px;overflow:auto}
+.hint{color:var(--muted);font-size:12px}
+select,input{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 9px;font-size:13px}
+
+/* Schermata iniziale */
+.start{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 30% 20%,rgba(124,92,255,.25),rgba(11,14,20,.96));display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.start.hide{display:none}
+.start .wrap{max-width:560px;width:100%;text-align:center;animation:pop .5s ease}
+.start .biglogo{position:relative;overflow:hidden;width:96px;height:96px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:54px;color:#0b0e14;box-shadow:0 0 40px rgba(124,92,255,.55);margin-bottom:16px}
+.start .biglogo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:inherit}
+.start h1{font-size:34px;background:linear-gradient(90deg,var(--accent2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
+.start .tagline{color:var(--muted);font-size:15px;margin-bottom:20px}
+.start .real-note{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:12px;color:var(--muted);text-align:left;margin-bottom:18px}
+.start .real-note b{color:var(--txt)}
+.avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1px solid var(--line);vertical-align:middle;margin-right:7px;background:var(--panel2);flex:0 0 auto}
+.avatar.lg{width:60px;height:60px;margin-right:12px}
+.start .disclaimer{background:rgba(251,191,36,.08);border:1px solid var(--warn);border-left:4px solid var(--warn);border-radius:10px;padding:11px 13px;font-size:11.5px;color:var(--muted);text-align:left;margin-bottom:18px;line-height:1.55}
+.start .disclaimer b{color:var(--warn)}
+.start .disclaimer .real{color:var(--txt)}
+.start .btns{display:flex;flex-direction:column;gap:10px}
+.start .facts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.start .facts span{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:11px;color:var(--muted)}
+
+/* Menu header */
+.menu-btn{background:var(--panel);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;font-size:18px;cursor:pointer;flex:0 0 auto}
+.menu-btn:hover{border-color:var(--accent)}
+.menu-pop{position:absolute;top:54px;right:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;z-index:60;display:none;min-width:200px;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.menu-pop.show{display:block}
+.menu-pop button{display:flex;width:100%;align-items:center;gap:10px;background:transparent;border:0;color:var(--txt);padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;text-align:left}
+.menu-pop button:hover{background:var(--panel2)}
+
+/* Probabilità partita */
+.prob{display:flex;align-items:center;gap:6px;margin-top:8px}
+.prob .pb{flex:1;height:8px;border-radius:5px;overflow:hidden;display:flex;border:1px solid var(--line)}
+.prob .pb .w{background:var(--good)}.prob .pb .d{background:var(--muted)}.prob .pb .l{background:var(--bad)}
+.prob .lab{font-size:11px;color:var(--muted);min-width:46px;text-align:right}
+
+/* Mobile */
+@media(max-width:640px){
+  .top-in{padding:6px 10px;gap:8px}
+  .chips{gap:5px}
+  .chip{min-width:60px;padding:4px 7px;font-size:11px}
+  .chip b{font-size:12px}
+  .brand .club{font-size:14px}
+  main{padding:10px}
+  .start h1{font-size:26px}
+  nav.tabs{top:50px}
+  .score{font-size:24px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="config.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <div class="logo">Z</div>
+      <div class="club">ZETA MILANO<small id="hdr-sub">Calcio Manageriale</small></div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <button class="menu-btn" onclick="toggleMenu(event)" aria-label="Menu">≡</button>
+  </div>
+  <div class="menu-pop" id="menu-pop">
+    <button onclick="showGuide();closeMenu()">📖 Come si gioca</button>
+    <button onclick="setTab('realworld');closeMenu()">🌍 Mondo Reale</button>
+    <button onclick="shareGame();closeMenu()">🔗 Condividi</button>
+    <button onclick="closeMenu();setTab('panoramica')">📊 Panoramica</button>
+    <button onclick="confirmNewGame()">↻ Nuova partita</button>
+    <button onclick="closeMenu();logout()">👥 Cambia profilo</button>
+    <button onclick="showInfo();closeMenu()">ℹ️ Info & Fonti</button>
+  </div>
+</header>
+<nav class="tabs" id="tabs"></nav>
+<main id="app"></main>
+<footer class="ft">
+  <p><b>Zeta Milano — Calcio Manageriale</b> · Gioco a-turni basato sulla storia reale del FC Zeta Milano (fondato 22/05/2024, Presidente Antonio Pellegrino). Rosa, staff, percorso per categorie e partner Como 1907 sono <b>reali</b> (fonti: Wikipedia EN, sito ufficiale zetaworld.it, tuttocampo.it). Budget, follower social, rating giocatori, valori di mercato, nomi degli avversari e gli sponsor di gioco (oltre Como 1907) sono <b>finzione di gioco</b>.</p>
+  <p>Salvataggio automatico locale nel browser. Fonti: <a href="https://en.wikipedia.org/wiki/FC_Zeta_Milano" target="_blank">en.wikipedia.org/wiki/FC_Zeta_Milano</a> · <a href="https://zetaworld.it" target="_blank">zetaworld.it</a> · <a href="https://www.tuttocampo.it/Lombardia/PrimaCategoria/GironeB/Squadra/FCZetaMilano/1238264" target="_blank">tuttocampo.it</a></p>
+</footer>
+
+<!-- Modals -->
+<div class="modal" id="modal"><div class="box" id="modal-box"></div></div>
+<div class="win-banner" id="win-banner"><div class="wbox" id="win-box"></div></div>
+
+<!-- Schermata iniziale -->
+<div class="start hide" id="start">
+  <div class="wrap">
+    <div class="biglogo">Z<img id="biglogo-img" alt="Zeta Milano" onerror="this.remove()"></div>
+    <h1>ZETA MILANO</h1>
+    <div class="tagline">Calcio Manageriale · Dalla Prima Categoria alla Serie A</div>
+    <div class="real-note">
+      Sei il <b> Direttore Sportivo</b> della squadra social più famosa d'Italia. Gestisci rosa, staff, allenamenti, strutture, mercato, social, sponsor e investitori e portala in Serie A.<br><br>
+      🟢 <b>Reale</b>: fondazione 22/05/2024, presidente A. Pellegrino, GM C. Brocchi, rosa e staff 2026/27, partner Como 1907.<br>
+      🎮 <b>Finzione di gioco</b>: budget, follower, rating, valori, avversari, sponsor di gioco.
+    </div>
+    <div class="disclaimer">
+      <b>⚠️ Disclaimer</b> — Tutti gli <b>importi</b> (budget, ingaggi, valori di mercato, sponsor), le <b>quotazioni</b> (rating e overall dei giocatori), le <b>dichiarazioni</b> (interviste e dichiarazioni di giocatori, staff e dirigenza) e gli <b>avvenimenti</b> (risultati delle partite, infortuni, vicende di mercato e stagionali) sono <b>casuali e generati in automatico</b> dal motore del gioco. Non rappresentano fatti reali.<br>
+      <span class="real">Sono invece reali la rosa, lo staff, i dirigenti, la storia societaria e il partner Como 1907 (fonti: Wikipedia EN, zetaworld.it, tuttocampo.it).</span>
+    </div>
+    <div class="btns" id="start-btns"></div>
+    <div class="facts">
+      <span>Prima Categoria → Serie A</span><span>13 partite/stagione</span><span>6 promozioni</span><span>Salvataggio automatico</span>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============================== SUPABASE + LINK REALI (opzionale) ============================== */
+// Le chiavi Supabase e i link reali NON sono più qui: stanno nel file esterno "config.js"
+// (caricato in <head>). Puoi sovrascrivere questo index.html quante volte vuoi: le tue chiavi
+// restano al sicuro in config.js. Se config.js manca o i valori sono placeholder, il gioco
+// va in modalità LOCALE (profili + salvataggio su questo dispositivo).
+const _C = window.ZM_CONFIG || {};
+const SUPA = {
+  url:     _C.supabaseUrl     || "PASTE_SUPABASE_URL",
+  anonKey: _C.supabaseAnonKey || "PASTE_SUPABASE_ANON_KEY"
+};
+const REAL_LINKS = Object.assign({
+  wikiPage: "FC_Zeta_Milano",
+  wikipedia: "https://en.wikipedia.org/wiki/FC_Zeta_Milano",
+  tuttocampo: "https://www.tuttocampo.it/Lombardia/PrimaCategoria/GironeB/Squadra/FCZetaMilano/1238264",
+  zetaworld: "https://zetaworld.it"
+}, _C.real || {});
+const PHOTOS = (_C.photos && typeof _C.photos==="object") ? _C.photos : {};
+const LOGO_URL = _C.logoUrl || "logo.png";
+const SUPA_PLACEHOLDER = "PASTE_";
+/* ---- Avatar giocatori/staff: foto reale (se in config.photos) o iniziali generate ---- */
+const AV_COLORS=["#7c5cff","#22d3ee","#34d399","#fbbf24","#f87171","#fcd34d","#a78bfa","#38bdf8"];
+const _avCache=[];
+function _ini(name){const t=String(name||'').replace(/[\u201c\u201d"].*$/,'').trim();const ps=t.split(/\s+/).filter(Boolean);const a=(ps[0]||'Z').charAt(0).toUpperCase();const b=ps.length>1?ps[1].charAt(0).toUpperCase():'';return (a+b)||'Z';}
+function _hue(s){let h=0;s=String(s);for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h;}
+function _avSvgData(name,size){const ini=_ini(name);const c=AV_COLORS[_hue(name)%AV_COLORS.length];const fs=Math.round(size*0.42);const svg="<svg xmlns='http://www.w3.org/2000/svg' width='"+size+"' height='"+size+"'><rect width='"+size+"' height='"+size+"' rx='"+(size/2)+"' fill='"+c+"'/><text x='50%' y='52%' dominant-baseline='central' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='"+fs+"' fill='#0b0e14'>"+ini+"</text></svg>";return "data:image/svg+xml,"+encodeURIComponent(svg);}
+function avatar(name,size){size=size||26;const url=PHOTOS[name];const fb=_avSvgData(name,size);if(url){const i=_avCache.length;_avCache.push(fb);return "<img class='avatar' src=\""+esc(url)+"\" alt=\""+esc(name)+"\" style='width:"+size+"px;height:"+size+"px' onerror=\"this.onerror=null;this.src=window._avCache["+i+"]\">";}return "<img class='avatar' src=\""+fb+"\" alt='' style='width:"+size+"px;height:"+size+"px'>";}
+window._avCache=_avCache;
+(function(){var el=document.getElementById('biglogo-img');if(el)el.src=LOGO_URL;})();
+let sb=null, cloudUser=null;
+function cloudReady(){return !!(sb && (SUPA.url||"").indexOf(SUPA_PLACEHOLDER)===-1);}
+function initSupabase(){
+  if((SUPA.url||"").indexOf(SUPA_PLACEHOLDER)!==-1) return;
+  if(typeof window.supabase==="undefined"){ console.warn("Supabase SDK non caricato (CDN). Rimango in modalità locale."); return; }
+  try{ sb = window.supabase.createClient(SUPA.url, SUPA.anonKey, {auth:{persistSession:true, autoRefreshToken:true}}); }catch(e){ console.warn("init Supabase fallito:", e); sb=null; }
+}
+async function cloudSignUp(email,password,name){
+  if(!sb)return {error:new Error("Supabase non configurato")};
+  const {data,error}=await sb.auth.signUp({email,password});
+  if(error)return {error};
+  if(data.user && name){ try{ await sb.from("profiles").upsert({id:data.user.id, manager_name:name}); }catch(e){} }
+  return {user:data.user};
+}
+async function cloudSignIn(email,password){
+  if(!sb)return {error:new Error("Supabase non configurato")};
+  const {data,error}=await sb.auth.signInWithPassword({email,password});
+  if(error)return {error};
+  return {user:data.user};
+}
+async function cloudSignOut(){ if(!sb)return; try{await sb.auth.signOut();}catch(e){} cloudUser=null; state=null; s=null; }
+async function cloudSave(){
+  if(!sb||!cloudUser||!state)return;
+  try{
+    await sb.from("game_saves").upsert({user_id:cloudUser.id, updated_at:new Date().toISOString(), data:state});
+    try{localStorage.setItem("zm_cloud_cache_"+cloudUser.id, JSON.stringify(state));}catch(e){}
+  }catch(e){ console.warn("cloudSave fallito (offline?):", e.message); }
+}
+async function cloudLoad(){
+  if(!sb||!cloudUser)return false;
+  try{
+    const {data,error}=await sb.from("game_saves").select("data").eq("user_id",cloudUser.id).maybeSingle();
+    if(!error && data && data.data){ state=data.data; s=state; try{localStorage.setItem("zm_cloud_cache_"+cloudUser.id, JSON.stringify(state));}catch(e){} return true; }
+  }catch(e){ console.warn("cloudLoad fallito, provo cache locale:", e.message); }
+  try{ const raw=localStorage.getItem("zm_cloud_cache_"+cloudUser.id); if(raw){state=JSON.parse(raw);s=state;return true;} }catch(e){}
+  return false;
+}
+async function cloudRealLoad(){
+  if(!sb)return null;
+  try{
+    const [info,results,stand]=await Promise.all([
+      sb.from("real_info").select("*").eq("id","zeta").maybeSingle(),
+      sb.from("real_results").select("*").order("date",{ascending:false}).limit(8),
+      sb.from("real_standings").select("*").order("pos",{ascending:true}).limit(20)
+    ]);
+    return {info:info.data||null, results:results.data||[], standings:stand.data||[]};
+  }catch(e){ return null; }
+}
+/* ============================== DATI REALI / DI GIOCO ============================== */
+
+// Piramide dilettantistica → professionistica (dal basso). Indice 0 = partenza (Prima Categoria).
+const CATEGORIES = [
+  {name:"Prima Categoria",   girone:"B", region:"Lombardia", baseOvr:49, var:9,  promoBonus:90000,  relRisk:true,  seasonTicket:8},
+  {name:"Promozione",        girone:"A", region:"Lombardia", baseOvr:58, var:9,  promoBonus:180000, relRisk:true,  seasonTicket:14},
+  {name:"Eccellenza",        girone:"A", region:"Lombardia", baseOvr:67, var:9,  promoBonus:360000, relRisk:true,  seasonTicket:30},
+  {name:"Serie D",           girone:"B", region:"Girone B",  baseOvr:75, var:8,  promoBonus:900000, relRisk:true,  seasonTicket:120},
+  {name:"Serie C",           girone:"A", region:"Girone A",  baseOvr:82, var:7,  promoBonus:2200000,relRisk:true,  seasonTicket:520},
+  {name:"Serie B",           girone:"A", region:"Girone A",  baseOvr:87, var:6,  promoBonus:6000000,relRisk:true,  seasonTicket:3200},
+  {name:"Serie A",           girone:"-", region:"Massima",   baseOvr:91, var:5,  promoBonus:0,      relRisk:false, seasonTicket:14000, isGoal:true},
+];
+// Da Prima Categoria a Serie A = 6 promozioni.
+
+// Rosa attuale reale stagione 2026/27 (Prima Categoria Girone B). Rating/età/valori = finzione di gioco.
+const STARTING_ROSTER = [
+  // Portieri
+  {n:"1",  name:"Alessio Buono",        pos:"P", age:24, ovr:58, real:true},
+  {n:"22", name:"Francesco Ambrosio",   pos:"P", age:21, ovr:50, real:true},
+  // Difensori
+  {n:"3",  name:"Andrés Llamas Acuña",  pos:"D", age:25, ovr:55, real:true},
+  {n:"11", name:"Fabio Eguelfi",        pos:"D", age:27, ovr:56, real:true},
+  {n:"14", name:"Andrea Tarasco",       pos:"D", age:29, ovr:62, real:true, captain:true},
+  {n:"27", name:"Niccolò Ciceri",       pos:"D", age:20, ovr:49, real:true},
+  {n:"29", name:"Stefano Lanini",       pos:"D", age:26, ovr:54, real:true},
+  {n:"33", name:"Alessio Marcone",      pos:"D", age:23, ovr:53, real:true},
+  {n:"74", name:"Duccio Guasti",        pos:"D", age:19, ovr:46, real:true},
+  {n:"82", name:"Lorenzo Mantovani",    pos:"D", age:28, ovr:55, real:true},
+  // Centrocampisti
+  {n:"5",  name:"Mattia El Hilali",     pos:"C", age:23, ovr:60, real:true, nat:"MAR"},
+  {n:"8",  name:"Luca L'Erede",         pos:"C", age:25, ovr:57, real:true},
+  {n:"18", name:"Alessandro Fratus",    pos:"C", age:22, ovr:54, real:true},
+  {n:"20", name:"Gioele Salvadore",     pos:"C", age:24, ovr:58, real:true, nat:"SUI"},
+  {n:"28", name:"Erick Diana",          pos:"C", age:26, ovr:56, real:true},
+  {n:"50", name:"Edoardo Maio",         pos:"C", age:19, ovr:48, real:true},
+  {n:"90", name:"Simone Soprano",       pos:"C", age:30, ovr:55, real:true},
+  // Attaccanti
+  {n:"7",  name:"Elia Ferrario",        pos:"A", age:21, ovr:59, real:true},
+  {n:"10", name:"Kevin Girgenti",       pos:"A", age:24, ovr:63, real:true},
+  {n:"17", name:"Edoardo Matta",        pos:"A", age:22, ovr:56, real:true},
+  {n:"21", name:"Filippo Alberto Nahum",pos:"A", age:26, ovr:58, real:true},
+  {n:"23", name:"Matteo Capitani",      pos:"A", age:20, ovr:52, real:true},
+  {n:"45", name:"Fallou Cisse",         pos:"A", age:25, ovr:57, real:true},
+  {n:"77", name:"David Speziale",       pos:"A", age:23, ovr:54, real:true},
+  {n:"--", name:"Simone Domenico Carollo",pos:"A", age:18, ovr:45, real:true},
+];
+
+// Staff reale + ruoli societari. Rating = finzione di gioco.
+const STARTING_STAFF = [
+  {role:"Allenatore",       name:"Fabio Mascetti",          rating:70, wage:1400, real:true, effect:"tactic"},
+  {role:"Vice Allenatore",  name:"Luca Sorrentino",         rating:64, wage:700,  real:true, effect:"assist"},
+  {role:"Prep. Portieri",   name:"Max Pirotta",             rating:66, wage:600,  real:true, effect:"gk"},
+  {role:"Prep. Atletico",   name:"Andrea Gonzales",         rating:65, wage:650,  real:true, effect:"athletic"},
+  {role:"Match Analyst",    name:"Giuseppe Barraco",        rating:62, wage:500,  real:true, effect:"analyst"},
+  {role:"Direttore Sportivo",name:"Stefano De Vita",        rating:68, wage:1100, real:true, effect:"ds"},
+  {role:"Team Manager",     name:"Jacopo Famiglietti",      rating:60, wage:550,  real:true, effect:"tm"},
+  {role:"General Manager",  name:"Cristian Brocchi",        rating:74, wage:0,    real:true, effect:"gm", note:"Ex Milan, ex-allenatore 2025/26"},
+  {role:"Vice Presidente",  name:"Umberto M. Chiaramonte",  rating:70, wage:0,    real:true, effect:"vp", note:"Primo allenatore storico 2024/25"},
+  {role:"Presidente Onorario",name:'Gianmarco Tocco "Blur"',rating:72, wage:0,    real:true, effect:"hon", note:"Socio dal 25/09/2026"},
+  {role:"Presidente",       name:'Antonio Pellegrino "ZWJackson"',rating:75,wage:0,real:true, effect:"pres"},
+];
+
+const FACILITY_DEFS = [
+  {key:"training",  label:"Centro di Allenamento", icon:"🏃", max:8, baseCost:60000,  desc:"Sviluppo giocatori, recupero affaticamento."},
+  {key:"stadium",   label:"Stadio / Campo",        icon:"🏟️", max:8, baseCost:80000,  desc:"Incassi botteghino, vantaggio casa, tifosi."},
+  {key:"youth",     label:"Settore Giovanile",     icon:"🌱", max:6, baseCost:100000, desc:"Genera giovani talenti gratis ogni stagione."},
+  {key:"medical",   label:"Centro Medico",         icon:"🩺", max:6, baseCost:90000,  desc:"Riduce infortuni e tempi di recupero."},
+  {key:"social",    label:"Social Media Studio",   icon:"📱", max:8, baseCost:50000,  desc:"Crescita follower, qualità dei contenuti."},
+  {key:"merch",     label:"Merchandising & Store", icon:"🧣", max:6, baseCost:70000,  desc:"Vendita maglie e gadget dai tifosi."},
+];
+
+// Sponsor di partenza. Como 1907 è reale (partner istituzionale). Gli altri sono finzione di gioco.
+const STARTING_SPONSORS = [
+  {name:"Como 1907",      type:"Partner Istituzionale", monthly:4000,  happy:80, real:true,  demand:{type:"social", threshold:55, label:"Mantenere hype social ≥ 55"}},
+  {name:"Lissonese Trasporti", type:"Sponsor di Maglia", monthly:6500, happy:75, real:false, demand:{type:"result", threshold:0.45, label:"Percentuale vittorie ≥ 45%"}},
+  {name:"Erre2 Sport",    type:"Sponsor Tecnico",       monthly:3500, happy:78, real:false, demand:{type:"social", threshold:50, label:"Hype social ≥ 50"}},
+];
+
+// Investitori di partenza. "Blur"/Pellegrino sono reali (soci); capitale = finzione di gioco.
+const STARTING_INVESTORS = [
+  {name:'Antonio Pellegrino "ZWJackson"', role:"Presidente & Fondatore", capital:0,    conf:85, real:true,  demand:{type:"promote", label:"Promozione entro 2 stagioni"}},
+  {name:'Gianmarco Tocco "Blur"',        role:"Socio / Presidente Onorario", capital:250000, conf:70, real:true, demand:{type:"social", threshold:900000, label:"Superare 900.000 follower totali"}},
+];
+
+const SOCIAL_PLATFORMS = [
+  {key:"instagram", label:"Instagram", icon:"📸"},
+  {key:"tiktok",    label:"TikTok",    icon:"🎵"},
+  {key:"youtube",   label:"YouTube",   icon:"▶️"},
+];
+
+// Tipi di contenuto social (1 post = 1 azione; max 2 post/settimana).
+const SOCIAL_POSTS = [
+  {id:"highlights", label:"Highlights della partita", icon:"⚽", cost:1,
+    desc:"Riassunto dell'ultima gara. forte se hai vinto.",
+    apply:(s)=>{const r=s.lastResult; if(!r) return {msg:"Nessuna partita da montare. Post annullato.", d:{}}; const win=r.gf>r.gs; const gain=Math.round((win?4200:1500)*(1+s.facilities.social*0.06)); s.followers.instagram+=Math.round(gain*0.4); s.followers.tiktok+=Math.round(gain*0.4); s.followers.youtube+=Math.round(gain*0.2); s.hype=clamp(s.hype+(win?7:2),0,100); if(win) s.morale=clamp(s.morale+3,0,100); return {msg:`Highlights pubblicati. +${gain} follower (${win?'vittoria da raccontare':'gara raccontata'}). Hype ${win?'+7':'+2'}.`, d:{}};}},
+  {id:"bts", label:"Dietro le quinte - allenamento", icon:"🎥", cost:1,
+    desc:"Accesso esclusivo: spogliatoio, sweat, voci. Costruisce tifoso-fedeltà.",
+    apply:(s)=>{const gain=Math.round(2600*(1+s.facilities.social*0.07)); s.followers.instagram+=Math.round(gain*0.5); s.followers.tiktok+=Math.round(gain*0.5); s.fanLoyalty=clamp((s.fanLoyalty||55)+4,0,100); s.morale=clamp(s.morale+2,0,100); s.facilities.social&&null; return {msg:`Dietro le quinte pubblicato. +${gain} follower. Fedeltà tifosi +4, morale +2.`, d:{}};}},
+  {id:"challenge", label:"Q&A / Challenge TikTok", icon:"💃", cost:1,
+    desc:"Challenge virale con i giocatori. Botte su TikTok.",
+    apply:(s)=>{const gain=Math.round(3400*(1+s.facilities.social*0.08)); s.followers.tiktok+=gain; s.hype=clamp(s.hype+6,0,100); const viral=Math.random()<0.18; if(viral){const b=Math.round(9000+Math.random()*9000); s.followers.tiktok+=b; s.hype=clamp(s.hype+8,0,100); return {msg:`CHALLENGE VIRALE! +${gain+b} follower TikTok, hype +14.`, d:{viral:true}};} return {msg:`Challenge TikTok pubblicata. +${gain} follower, hype +6.`, d:{}};}},
+  {id:"vlog", label:"Vlog Matchday", icon:"🎬", cost:1,
+    desc:"Una giornata-type: dal ritiro al fischio finale. Cura YouTube.",
+    apply:(s)=>{const gain=Math.round(2100*(1+s.facilities.social*0.07)); s.followers.youtube+=gain; s.followers.instagram+=Math.round(gain*0.3); s.fanLoyalty=clamp((s.fanLoyalty||55)+5,0,100); return {msg:`Vlog matchday caricato. +${gain} iscritti YouTube, fedeltà tifosi +5.`, d:{}};}},
+  {id:"branded", label:"Contenuto sponsorizzato", icon:"💰", cost:1,
+    desc:"Post pagato dallo sponsor di maglia. Incasso netto, leggero calo engagement.",
+    apply:(s)=>{const inc=Math.round(5000+s.catIndex*3500); s.budget+=inc; s.hype=clamp(s.hype-3,0,100); s.sponsors.forEach(sp=>{if(sp.type.includes("Maglia")||sp.type.includes("Tecnico")) sp.happy=clamp(sp.happy+6,0,100);}); return {msg:`Contenuto sponsor pubblicato. +€${fmt(inc)} in cassa. Sponsor più felici. Hype -3.`, d:{}};}},
+  {id:"clapback", label:"Risposta alle malelingue", icon:"🔥", cost:1,
+    desc:"Replica pubblica a voci/dramma. Alza l'hype ma può nervare lo spogliatoio.",
+    apply:(s)=>{s.hype=clamp(s.hype+9,0,100); s.followers.instagram+=Math.round(1800*(1+s.facilities.social*0.06)); const risk=Math.random()<0.35; if(risk){s.morale=clamp(s.morale-5,0,100); return {msg:`La replica fa il botto: hype +9, ma lo spogliatoio si innervosisce (-5 morale).`, d:{}};} return {msg:`Replica decisa pubblicata: hype +9, morale invariato.`, d:{}};}},
+];
+
+const FORMATIONS = ["4-3-3","4-4-2","3-5-2","5-3-2","4-2-3-1"];
+const APPROACHES = [
+  {id:"offensivo", label:"Offensivo", atk:1.12, def:0.90},
+  {id:"bilanciato",label:"Bilanciato",atk:1.00, def:1.00},
+  {id:"difensivo", label:"Difensivo", atk:0.88, def:1.12},
+];
+const TRAINING_FOCUSES = [
+  {id:"attacco",  label:"Attacco",       ovrGain:[["A",1.4],["C",0.6]],   morale:-1, fatigue:8},
+  {id:"difesa",   label:"Difesa",        ovrGain:[["D",1.4],["C",0.6]],   morale:-1, fatigue:8},
+  {id:"fisico",   label:"Atletico",      ovrGain:[["D",0.5],["C",0.5],["A",0.5],["P",0.3]], morale:-2, fatigue:14},
+  {id:"tattica",  label:"Tattica",       ovrGain:[["D",0.4],["C",0.7],["A",0.4]], morale:+1, fatigue:6},
+  {id:"recupero", label:"Recupero",      ovrGain:[],                       morale:+3, fatigue:-22},
+];
+
+// Generatore nomi avversari fittizi (chiari come finzione di gioco) per regione/categoria.
+const OPP_PARTS = {
+  prefix:["AC","USD","ASD","FC","SS","Pol.","Oratorio","GS","Città","Real"],
+  cities:{
+    "Prima Categoria":["Quarto Oggiaro","Baggio","Crescenzago","Lambrate","Rho","Cinisello","Sesto","Cologno","Brugherio","Segrate","Peschiera","Affori","Muggiano","Tribiano","Cernusco","Vimodrone","Trezzano","Settimo","Pioltello","Gorgonzola"],
+    "Promozione":["Brianza","Martesana","Naviglio","Olona","Seveso","Adda","Lambro","Ticino","Cusio","Valassina","Canzese","Missaglia","Merate","Casatenovo","Vimercate","Carate","Giussano","Seregno","Desio","Concorezzo"],
+    "Eccellenza":["Magenta","Legnano","Busto","Varese","Como","Lecco","Bergamo","Cremona","Lodi","Pavia","Vigevano","Sondrio","Monza","Cantù","Erba","Tradate","Castellanza","Saronno","Gallarate","Bollate"],
+    "Serie D":["Pro Sesto","Virtus Bergamo","Real Cuneo","Audace Piemonte","Pianura","Leonesse","Falco","Adriatico","Tritium","Sestese","Castellanzese","Varesina","Folgore","Leffe","Casertana Nord","Pordenone Est","Trento Sud","Triestina Est","Gole Alpina","Montagna"],
+    "Serie C":["Lombardia United","Padania FC","Alpina Sport","Riviera Calcio","Azzurra Piemonte","Tuscia Nord","Maremmana","Appennino","Metauro","Murgia","Langhe","Garda","Valpadana","Sabina","Etruria","Dauno","Molisano","Irpinia Nord","Cilentana","Cosentino"],
+    "Serie B":["Centro Italia","Litorale","Sud Tirol","Apeninno FC","Marino","Ferrovieri","Astro","Lumen","Pinerolo","Valdarno","Tuscia","Maremma","Cosentino","Brutium","Ionica","Eolie","Metauro","Sabato","Adriano","Calabria Nord"],
+    "Serie A":["Mediterranea","Tirreno","Adriatica","Padania","Alpina","Latium","Tuscia","Etruria","Sirena","Aurora","Domus","Palatino","Quirinale","Capitolina","Velabro","Marmora","Argentum","Aurea","Smeraldo","Rubro"],
+  }
+};
+
+// Pool eventi casuali settimanali (malelingue, litigi allenatore, ecc.).
+const EVENT_POOL = [
+  // --- Malelingue sui social ---
+  {id:"rumor_captain", title:"Malelingue sul capitano",
+   text:"Un account anonimo su X: 'Tarasco e Mascetti si sono presi a parole negli spogliatoi. Lo spogliatoio è spaccato.' La notizia fa il giro dei gruppi WhatsApp dei tifosi.",
+   weight:10, choices:[
+     {label:"Smentita ufficiale del club", sub:"Ripristina l'immagine, ma l'hype cala.", fn:()=>{s.morale=clamp(s.morale+3,0,100); s.hype=clamp(s.hype-5,0,100); return "Comunicato stampa: 'Voci infondate, spogliatoio compatto.' Morale +3, hype -5."}},
+     {label:"Ignorare: il silenzio è stile", sub:"Nessun danno immediato, ma la voce resta.", fn:()=>{s.morale=clamp(s.morale-2,0,100); return "Nessuna risposta. La voce continua a girare. Morale -2."}},
+     {label:"Indagine interna", sub:"Verifichi davvero. Costo: tempo.", fn:()=>{const ok=Math.random()<0.6; if(ok){s.morale=clamp(s.morale+5,0,100); return "Indagine interna: tutto falso. Morale +5 per aver chiarito."} s.morale=clamp(s.morale-6,0,100); return "L'indagine rivela effettive tensioni. Morale -6."}},
+   ]},
+  // --- Litigio giocatore vs allenatore ---
+  {id:"coach_fight", title:"Giocatore contro l'allenatore", needsPlayer:true,
+   text:"{P} è furioso in panchina: 'Non sono qui per scaldare la panchina, coach!' Mascetti chiede mano ferma. Tocca a te decidere.",
+   weight:12, choices:[
+     {label:"Appoggi pubblicamente Mascetti", sub:"Autorità allenatore ↑, giocatore nervoso.", fn:(p)=>{p.morale=clamp(p.morale-18,0,100); p.unhappy=true; s.coachAuth=clamp((s.coachAuth||70)+5,0,100); s.morale=clamp(s.morale-2,0,100); return `Hai dato ragione a Mascetti. ${p.name} è gelido (-18 morale, ora scontento). Autorità allenatore +5."`}},
+     {label:"Dagli minuti la prossima gara", sub:"Accontenta il giocatore, autorità allenatore ↓.", fn:(p)=>{p.morale=clamp(p.morale+12,0,100); p.unhappy=false; s.coachAuth=clamp((s.coachAuth||70)-6,0,100); return `${p.name} sorride (+12 morale). Mascetti digrigna i denti: autorità allenatore -6."`}},
+     {label:"Multa interna + chiarimento", sub:"Disciplina, +cassa, rischio reazione.", fn:(p)=>{s.budget+=2500; p.morale=clamp(p.morale-8,0,100); s.coachAuth=clamp((s.coachAuth||70)+3,0,100); const bad=Math.random()<0.3; if(bad){p.unhappy=true; p.askLeave=true; return `Multa di €2.500. ${p.name} si sente umiliato e chiede la cessione."`} return `Multa di €2.500 incassata. ${p.name} accetta di malavoglia (-8 morale)."`}},
+     {label:"Incontro a tre (tu-coach-giocatore)", sub:"Punta a risolvere davvero.", fn:(p)=>{const ok=Math.random()<0.55; if(ok){p.morale=clamp(p.morale+6,0,100); p.unhappy=false; s.morale=clamp(s.morale+2,0,100); return `Vertice chiarificatore: pace fatta. ${p.name} +6 morale."`} p.morale=clamp(p.morale-5,0,100); p.unhappy=true; return `Il vertice degenera. ${p.name} resta scontento (-5)."`}},
+   ]},
+  // --- Offerta per un tuo giocatore ---
+  {id:"offer_player", title:"Offerta per un tuo giocatore", needsPlayer:true, minCat:0,
+   text:"Un club di categoria superiore ha messo gli occhi su {P}: offerta di €{V} per il suo cartellino.",
+   weight:9, choices:[
+     {label:"Accetta e incassa", sub:"+cassa, perdi il giocatore.", fn:(p,v)=>{s.budget+=v; removePlayer(p); return `Cessione conclusa: +€${fmt(v)}. ${p.name} saluta."`}},
+     {label:"Rifiuta categoricamente", sub:"Tieni il giocatore, ma si sente bramato.", fn:(p,v)=>{p.morale=clamp(p.morale-4,0,100); p.unhappy=Math.random()<0.4; return `Offerta rifiutata. ${p.name} sa di valere di più (-4 morale)."`}},
+     {label:"Controrofferta +30%", sub:"Rischio: l'acquirente ritira o accetta.", fn:(p,v)=>{const nv=Math.round(v*1.3); if(Math.random()<0.4){s.budget+=nv; removePlayer(p); return `L'acquirente accetta: +€${fmt(nv)}. ${p.name} venduto al rialzo."`} p.morale=clamp(p.morale+3,0,100); return `L'acquirente si ritira. ${p.name} resta, +3 morale per la stima mostrata."`}},
+   ]},
+  // --- Infortunio ---
+  {id:"injury", title:"Infortunio in allenamento", needsPlayer:true,
+   text:"{P} si è storto la caviglia sui terreni del centro di allenamento. Stop stimato: {W} settimane.",
+   weight:8, choices:[
+     {label:"E' la sorte, vai avanti", sub:"", fn:(p,w)=>{p.injured=w; return `${p.name} fuori per ${w} settimane."`}},
+   ]},
+  // --- Viral positivo ---
+  {id:"viral_good", title:"Un tuo clip va virale",
+   text:"Un tuo vecchio contenuto TikTok è esploso: +40k visualizzazioni in una notte. I media ne parlano.",
+   weight:7, choices:[
+     {label:"Cavalca l'onda: nuova serie di contenuti", sub:"Monetizza i follower.", fn:()=>{const g=Math.round(12000*(1+s.facilities.social*0.07)); s.followers.tiktok+=g; s.followers.instagram+=Math.round(g*0.5); s.hype=clamp(s.hype+8,0,100); s.budget+=Math.round(2000+s.catIndex*1500); return `+${g} follower TikTok, hype +8, +€${fmt(2000+s.catIndex*1500)} di sponsor extra.`}},
+     {label:"Lascia correre, resta sul lavoro", sub:"Niente drammi, +poco.", fn:()=>{const g=Math.round(4000); s.followers.tiktok+=g; return `+${g} follower TikTok. Nient'altro.`}},
+   ]},
+  // --- Sponsor scontento ---
+  {id:"sponsor_angry", title:"Lo sponsor di maglia minaccia di andarsene",
+   text:"'{S}' scrive: 'I risultati non ci piacciono e i social sono spenti. Rivediamo l'accordo.'",
+   weight:8, needsSponsor:true, choices:[
+     {label:"Prometti una campagna social dedicata", sub:"Recupera la sponsor, -hype.", fn:(sp)=>{sp.happy=clamp(sp.happy+14,0,100); s.hype=clamp(s.hype-4,0,100); return `${sp.name} si rabbonisce (+14 felicità). Impegno social preso: hype -4."`}},
+     {label:"Rinegozia riducendo l'accordo", sub:"-cassa mensile, ma eviti la rottura.", fn:(sp)=>{sp.monthly=Math.round(sp.monthly*0.7); sp.happy=clamp(sp.happy+6,0,100); return `Accordo ridotto del 30%. ${sp.name} resta, ma paga meno."`}},
+     {label:"Lascia che se ne vada", sub:"Perdi lo sponsor subito.", fn:(sp)=>{s.sponsors=s.sponsors.filter(x=>x!==sp); return `${sp.name} rescinde. Cercherai un nuovo sponsor in estate."`}},
+   ]},
+  // --- Investitore pressione ---
+  {id:"investor_pressure", title:"L'investitore pretende garanzie",
+   text:"'{I}' vuole vedere un piano: 'Promessa di promozione entro fine stagione, o riduco il mio impegno.'",
+   weight:7, needsInvestor:true, choices:[
+     {label:"Prometti la promozione", sub:"+confidenza se sali, -drastica se fallisci.", fn:(inv)=>{inv.conf=clamp(inv.conf+8,0,100); inv.promise=true; return `Promessa fatta a ${inv.name}: confidenza +8. Se non promuovi, -20 confidenza a fine stagione."`}},
+     {label:"Gestisci aspettative: 'lavoriamo seriamente'", sub:"Stabile, neutro.", fn:(inv)=>{inv.conf=clamp(inv.conf+1,0,100); return `Discorso misurato. ${inv.name} apprezza la sobrietà (+1)."`}},
+     {label:"Rifiuta le pressioni", sub:"Autorità tua, ma -confidenza.", fn:(inv)=>{inv.conf=clamp(inv.conf-10,0,100); return `${inv.name} non gradisce la tua fermezza (-10 confidenza)."`}},
+   ]},
+  // --- Tifosi contestano ---
+  {id:"fan_protest", title:"I tifosi contestano il gioco",
+   text:"La curva di WhatsApp è in rivolta: 'Troppo difensivo, no spettacolo! Vogliamo vedere gol!' Minacciano boicottaggio social.",
+   weight:8, choices:[
+     {label:"Town hall: ascolta i tifosi", sub:"Fedeltà ↑, ma perdi tempo.", fn:()=>{s.fanLoyalty=clamp((s.fanLoyalty||55)+8,0,100); s.hype=clamp(s.hype+3,0,100); return `Assemblea con i tifosi. Fedeltà +8. La voce conta.`}},
+     {label:"Cambia approccio in offensivo", sub:"Accontenta la piazza (auto).", fn:()=>{s.approach="offensivo"; s.fanLoyalty=clamp((s.fanLoyalty||55)+5,0,100); return `Approccio passato a OFFENSIVO. Tifosi +5 fedeltà."`}},
+     {label:"Ignora: 'decido io'", sub:"-fedeltà, +controllo.", fn:()=>{s.fanLoyalty=clamp((s.fanLoyalty||55)-7,0,100); s.followers.instagram-=2000; return `La curva si indispettisce. Fedeltà -7, -2.000 follower."`}},
+   ]},
+  // --- Discordia tra compagni ---
+  {id:"teammate_clash", title:"Due compagni si beccano", needsPlayer:true,
+   text:"Dopo la partita {P} e un compagno hanno litigato nel tunnel. Voce che non si parlino.",
+   weight:7, choices:[
+     {label:"Cena della squadra pagata dal club", sub:"+morale, -cassa.", fn:(p)=>{s.budget-=800; s.morale=clamp(s.morale+6,0,100); p.morale=clamp(p.morale+5,0,100); return `Cena di gruppo: €800 spesi bene. Morale +6, ${p.name} +5."`}},
+     {label:"Intervieni da DS: multa both", sub:"Disciplina, -morale.", fn:(p)=>{s.budget+=1500; s.morale=clamp(s.morale-3,0,100); return `Multa a entrambi: +€1.500, ma morale -3."`}},
+   ]},
+  // --- Rinnovo contratto richiesto ---
+  {id:"contract_ask", title:"{P} chiede il rinnovo", needsPlayer:true,
+   text:"{P} sente di meritare di più: 'Voglio un nuovo contratto o in estate me ne vado.'",
+   weight:7, choices:[
+     {label:"Rinnova al rialzo", sub:"+stima, +ingaggio (costo settimanale).", fn:(p)=>{p.wage=Math.round(p.wage*1.4); p.morale=clamp(p.morale+10,0,100); p.unhappy=false; return `${p.name} rinnovato (+40% ingaggio). +10 morale."`}},
+     {label:"Rinvia a fine stagione", sub:"Niente impegno ora.", fn:(p)=>{p.unhappy=Math.random()<0.5; return `Rinvio. ${p.name} resta in attesa."`}},
+     {label:"Mettlo sul mercato", sub:"Disposto a cederlo.", fn:(p)=>{p.askLeave=true; p.morale=clamp(p.morale-6,0,100); return `${p.name} è sul mercato. -6 morale."`}},
+   ]},
+  // --- Voce allenatore che salta ---
+  {id:"coach_rumor", title:"Voce: Mascetti vicino all'esonero",
+   text:"Un giornale locale titola: 'Mascetti a una gara dall'addio.' Lo spogliatoio è in allarme.",
+   weight:6, choices:[
+     {label:"Public backing forte al coach", sub:"+autorità, +morale.", fn:()=>{s.coachAuth=clamp((s.coachAuth||70)+7,0,100); s.morale=clamp(s.morale+4,0,100); return `Pubblico sostegno a Mascetti. Autorità +7, morale +4."`}},
+     {label:"Silenzio stampa", sub:"Neutro.", fn:()=>{s.morale=clamp(s.morale-2,0,100); return `Silenzio. Lo spogliatoio si agita (-2)."`}},
+     {label:"Metti davvero in discussione il coach", sub:"Rischio esonero/cofidenza.", fn:()=>{s.coachAuth=clamp((s.coachAuth||70)-8,0,100); s.morale=clamp(s.morale-5,0,100); return `Hai mandato segnali freddi al coach. Autorità -8, morale -5."`}},
+   ]},
+];
+
+/* Marker: la logica di gioco viene inserita qui sotto (scritta in blocchi successivi). */
+/* ============================== HELPERS ============================== */
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function fmt(n){n=Math.round(n);return n.toLocaleString('it-IT');}
+function fmtNum(n){n=Math.round(n);if(n>=1e6)return (n/1e6).toFixed(2).replace('.',',')+'M';if(n>=1e3)return (n/1e3).toFixed(1).replace('.',',')+'k';return ''+n;}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function chance(p){return Math.random()<p;}
+function mean(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0;}
+function el(html){const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild;}
+function posLabel(p){return {P:'Portiere',D:'Difensore',C:'Centrocampista',A:'Attaccante'}[p]||p;}
+
+/* ============================== ECONOMIA GIOCATORI ============================== */
+function pVal(p){const ageF=p.age<=21?1.25:p.age<=25?1.15:p.age<=29?1.0:p.age<=32?0.75:0.45; const catF=1+s.catIndex*0.7; return Math.max(2500,Math.round((p.ovr-28)*1500*ageF*catF));}
+function pWage(p){return Math.round(pVal(p)*0.0018)+60+s.catIndex*180;}
+function effOvr(p){if(p.injured)return Math.round(p.ovr*0.5); let e=p.ovr; e-=p.fatigue>78?8:p.fatigue>58?4:0; e+=p.morale>82?2:p.morale<38?-3:0; return e;}
+function squadWageTotal(){return s.squad.reduce((t,p)=>t+p.wage,0);}
+function staffWageTotal(){return s.staff.reduce((t,x)=>t+x.wage,0);}
+
+/* ============================== STAFF / STRUTTURE ============================== */
+function staffBy(effect){return s.staff.find(x=>x.effect===effect);}
+function coachRating(){const c=staffBy('tactic');return c?c.rating:60;}
+function athleticRating(){const c=staffBy('athletic');return c?c.rating:60;}
+function dsRating(){const c=staffBy('ds');return c?c.rating:60;}
+function tmRating(){const c=staffBy('tm');return c?c.rating:60;}
+function facilityCost(key){const def=FACILITY_DEFS.find(d=>d.key===key);const lvl=s.facilities[key];return Math.round(def.baseCost*(lvl+1)*(1+s.catIndex*0.5));}
+
+/* ============================== STATO / SALVATAGGIO / PROFILI ============================== */
+let state=null, s=null, tab="panoramica";
+const LEGACY_KEY="zetamilano_save_v1";          // vecchio salvataggio singolo (migrazione)
+const PROFILES_KEY="zm_profiles_v2";             // elenco profili locali
+const ACTIVE_KEY="zm_active_v2";                 // id profilo attivo
+const REAL_CACHE_KEY="zm_real_cache_v1";         // cache dati reali
+function saveKeyFor(id){return "zm_save_"+id;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function getProfiles(){try{return JSON.parse(localStorage.getItem(PROFILES_KEY)||'[]');}catch(e){return [];}}
+function setProfiles(arr){try{localStorage.setItem(PROFILES_KEY,JSON.stringify(arr));}catch(e){}}
+function getActiveId(){try{return localStorage.getItem(ACTIVE_KEY);}catch(e){return null;}}
+function setActiveId(id){try{id?localStorage.setItem(ACTIVE_KEY,id):localStorage.removeItem(ACTIVE_KEY);}catch(e){}}
+function activeProfile(){const id=getActiveId();return getProfiles().find(p=>p.id===id)||null;}
+function createProfile(name,handle){
+  const id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+  const profiles=getProfiles();
+  profiles.push({id,name:esc(name),handle:esc(handle),createdAt:new Date().toISOString()});
+  setProfiles(profiles);setActiveId(id);return id;
+}
+function deleteProfile(id){
+  try{localStorage.removeItem(saveKeyFor(id));}catch(e){}
+  setProfiles(getProfiles().filter(p=>p.id!==id));
+  if(getActiveId()===id)setActiveId(null);
+}
+
+function newGame(){
+  state={
+    season:"2026/27", catIndex:0, week:1, md:1,
+    budget:150000,
+    followers:{instagram:480000,tiktok:620000,youtube:175000},
+    fans:2400, fanLoyalty:55, morale:72, hype:58, coachAuth:68,
+    squad: STARTING_ROSTER.map(p=>({...p, morale:70, fatigue:0, injured:0, contract:2, unhappy:false, askLeave:false, wage:0, value:0})),
+    staff: STARTING_STAFF.map(x=>({...x})),
+    facilities:{training:1,stadium:1,youth:0,medical:1,social:3,merch:1},
+    training:{focus:"tattica", intensity:"media"},
+    formation:"4-3-3", approach:"bilanciato",
+    sponsors: STARTING_SPONSORS.map(x=>({...x, demand:{...x.demand}})),
+    investors: STARTING_INVESTORS.map(x=>({...x})),
+    league:null, news:[], lastResult:null,
+    socialPosts:0, marketGen:null, sponsorOffers:null, investorOffers:null, youthProspect:null,
+    history:[], gameOver:false, won:false,
+  };
+  s=state; tab="panoramica";
+  state.squad.forEach(p=>{p.wage=pWage(p);p.value=pVal(p);});
+  pushNews("Benvenuto alla Zeta Milano! Stagione 2026/27 — Prima Categoria, Girone B (Lombardia). Obiettivo: portare il club in Serie A. Sei tu il DS.");
+  generateLeague();
+  save();
+}
+function save(){const id=getActiveId();if(id&&state){try{localStorage.setItem(saveKeyFor(id),JSON.stringify(state));}catch(e){}}if(cloudReady()&&cloudUser&&state){cloudSave();}}
+function load(){const id=getActiveId();if(!id)return false;try{const raw=localStorage.getItem(saveKeyFor(id));if(!raw)return false;state=JSON.parse(raw);s=state;return true;}catch(e){return false;}}
+function resetSave(){closeModal();const id=getActiveId();if(id){try{localStorage.removeItem(saveKeyFor(id));}catch(e){}}newGame();render();}
+
+function pushNews(msg){s.news.unshift({t:"Sett. "+s.week+" · "+s.season, m:msg});if(s.news.length>60)s.news.pop();}
+
+/* ============================== TABELLA / CALENDARIO ============================== */
+function genOppName(catName){
+  const pre=pick(OPP_PARTS.prefix);
+  const city=pick(OPP_PARTS.cities[catName]||OPP_PARTS.cities["Prima Categoria"]);
+  return pre+" "+city;
+}
+function generateLeague(){
+  const cat=CATEGORIES[s.catIndex];
+  const teams=[{name:"FC Zeta Milano", ovr:0, isZeta:true, played:0,w:0,d:0,l:0,gf:0,gs:0,pts:0}];
+  const used=new Set();
+  while(teams.length<14){
+    const nm=genOppName(cat.name);
+    if(used.has(nm))continue; used.add(nm);
+    const ovr=Math.round(cat.baseOvr+(Math.random()*2-1)*cat.var);
+    teams.push({name:nm, ovr, isZeta:false, played:0,w:0,d:0,l:0,gf:0,gs:0,pts:0});
+  }
+  // single round robin fixtures for Zeta: 13 matchdays
+  const others=teams.filter(t=>!t.isZeta);
+  // shuffle order
+  for(let i=others.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[others[i],others[j]]=[others[j],others[i]];}
+  const fixtures=[];
+  for(let i=0;i<others.length;i++){fixtures.push({md:i+1, opp:others[i].name, home:i%2===0});}
+  s.league={teams, fixtures, md:1};
+  // set Zeta team ovr from squad
+  teams[0].ovr=Math.round(mean(s.squad.map(effOvr)));
+}
+function teamByName(nm){return s.league.teams.find(t=>t.name===nm);}
+function nextFixture(){return s.league.fixtures.find(f=>f.md===s.league.md);}
+function tableSorted(){return [...s.league.teams].sort((a,b)=>b.pts-a.pts||(b.gf-b.gs)-(a.gf-a.gs)||b.gf-a.gf);}
+
+/* ============================== BEST XI / FORZA ============================== */
+function parseFormation(f){const parts=f.split('-').map(Number);return {d:parts[0],c:parts[1],a:parts[2]};}
+function availablePlayers(){return s.squad.filter(p=>!p.injured && !p.rested);}
+function bestXI(formation){
+  const f=parseFormation(formation||s.formation);
+  const avail=availablePlayers();
+  const byPos=pos=>avail.filter(p=>p.pos===pos).sort((a,b)=>effOvr(b)-effOvr(a));
+  const pickN=(arr,n)=>arr.slice(0,n);
+  const gk=pickN(byPos('P'),1);
+  const def=pickN(byPos('D'),f.d);
+  const mid=pickN(byPos('C'),f.c);
+  const att=pickN(byPos('A'),f.a);
+  let xi=[...gk,...def,...mid,...att];
+  // fill gaps if short
+  if(xi.length<11){
+    const need=11-xi.length;
+    const pool=avail.filter(p=>!xi.includes(p)).sort((a,b)=>effOvr(b)-effOvr(a));
+    xi=[...xi,...pool.slice(0,need)];
+  }
+  return xi;
+}
+function teamStrength(home){
+  const xi=bestXI();
+  const avg=xi.length?mean(xi.map(effOvr)):30;
+  const moraleF=0.82+s.morale/330;
+  const fatF=1-mean(xi.map(p=>p.fatigue))/300;
+  const coachF=0.92+coachRating()/280;
+  const homeF=home?1.07:0.96;
+  const facF=1+(s.facilities.training-1)*0.012;
+  const authF=0.94+s.coachAuth/360;
+  const incomplete=xi.length<11?0.85:1;
+  return avg*moraleF*fatF*coachF*homeF*facF*authF*incomplete;
+}
+function oppStrength(ovr,home){return ovr*(home?0.94:1.04)*(0.9+Math.random()*0.2);}
+function poisson(lambda){let L=Math.exp(-lambda),k=0,p=1;do{k++;p*=Math.random();}while(p>L);return k-1;}
+
+/* ============================== RENDER BASE ============================== */
+function render(){if(!s)return;renderHeader();renderTabs();renderTab();}
+function renderHeader(){
+  const cat=CATEGORIES[s.catIndex];
+  document.getElementById('hdr-sub').textContent=cat.name+" · Girone "+cat.girone+" · "+s.season;
+  const totFol=Math.round(s.followers.instagram+s.followers.tiktok+s.followers.youtube);
+  const weeklyCost=Math.round((squadWageTotal()+staffWageTotal()));
+  const chips=[
+    {l:"Budget", v:"€"+fmt(s.budget), cls:s.budget<0?'bad':s.budget<30000?'warn':'good'},
+    {l:"Tifosi", v:fmtNum(s.fans), cls:'gold'},
+    {l:"Follower", v:fmtNum(totFol), cls:'gold'},
+    {l:"Morale", v:Math.round(s.morale), cls:s.morale<40?'bad':s.morale<60?'warn':'good'},
+    {l:"Hype social", v:Math.round(s.hype), cls:s.hype<40?'warn':'good'},
+    {l:"Ingaggi/sett", v:"€"+fmt(weeklyCost), cls:'muted'},
+    {l:"Settimana", v:s.week+"/13", cls:'muted'},
+    {l:"Categoria", v:(s.catIndex+1)+"/7", cls:'muted'},
+  ];
+  document.getElementById('chips').innerHTML=chips.map(c=>`<div class="chip ${c.cls}"><span class="tiny muted">${c.l}</span><b>${c.v}</b></div>`).join('');
+}
+const TABS=[
+  ['panoramica','📊 Panoramica'],['rosa','👥 Rosa'],['staff','🧑‍💼 Staff'],
+  ['allenamento','🏃 Allenamento'],['strutture','🏟️ Strutture'],['mercato','🔄 Mercato'],
+  ['social','📱 Social'],['sponsor','💼 Sponsor'],['investitori','💰 Investitori'],
+  ['calendario','📅 Calendario'],['classifica','🏆 Classifica'],['realworld','🌍 Reale'],['news','📰 News'],
+];
+function renderTabs(){
+  document.getElementById('tabs').innerHTML=TABS.map(([id,label])=>
+    `<button class="${tab===id?'active':''}" onclick="setTab('${id}')">${label}</button>`).join('');
+}
+function setTab(id){tab=id;render();}
+
+/* ============================== TAB: PANORAMICA ============================== */
+function renderDashboard(){
+  const cat=CATEGORIES[s.catIndex];
+  const fx=nextFixture();
+  const xi=bestXI();
+  const avg=xi.length?Math.round(mean(xi.map(effOvr))):0;
+  const injured=s.squad.filter(p=>p.injured);
+  const unhappy=s.squad.filter(p=>p.unhappy||p.askLeave);
+  let alerts='';
+  if(s.budget<0)alerts+=`<div class="notice bad">⚠️ Cassa in rosso (€${fmt(s.budget)}). Rischio bancarotta: risolvi entro poche settimane.</div>`;
+  else if(s.budget<30000)alerts+=`<div class="notice warn">⚠️ Cassa bassa (€${fmt(s.budget)}). Valuta cessioni o contenuti sponsor.</div>`;
+  if(s.morale<45)alerts+=`<div class="notice warn">😤 Morale spogliatoio basso (${Math.round(s.morale)}). Eventi social o gestione conflitti possono aiutare.</div>`;
+  if(injured.length)alerts+=`<div class="notice info">🩹 Infortunati: ${injured.map(p=>p.name+' ('+p.injured+'sett)').join(', ')}.</div>`;
+  if(unhappy.length)alerts+=`<div class="notice warn">😠 Scontenti: ${unhappy.map(p=>p.name).join(', ')}. Gestiscili dalla Rosa o cedili dal Mercato.</div>`;
+  if(s.coachAuth<50)alerts+=`<div class="notice warn">📉 Autorità allenatore bassa (${Math.round(s.coachAuth)}). Lo spogliatoio non lo teme più.</div>`;
+  if(s.hype<40)alerts+=`<div class="notice info">📱 Hype social in calo (${Math.round(s.hype)}). Pubblica contenuti dal tab Social.</div>`;
+
+  const objPct=Math.round((s.catIndex/6)*100);
+  const html=`
+  <div class="grid cols3">
+    <div class="card" style="grid-column:span 2">
+      <h3>🎯 Missione: portare la Zeta Milano in Serie A</h3>
+      <div class="sub">Partenza reale: Prima Categoria Girone B (2026/27). 6 promozioni fino alla Serie A.</div>
+      <div class="bar" style="height:14px"><span style="width:${objPct}%"></span></div>
+      <div class="row" style="margin-top:8px;align-items:center">
+        <span class="tag">Oggi: ${cat.name}</span>
+        <span class="muted small">→ Promozione → Eccellenza → Serie D → Serie C → Serie B → <b style="color:var(--gold)">Serie A</b></span>
+      </div>
+      ${alerts}
+    </div>
+    <div class="card">
+      <h3>📅 Prossima partita</h3>
+      ${fx?`<div class="center" style="margin:10px 0">
+        <div class="muted small">${fx.home?'Casa':'Trasferta'} · Settimana ${s.week}</div>
+        <div class="score" style="margin:8px 0">ZETA <span class="vs">vs</span> ${oppShort(fx.opp)}</div>
+        <div class="muted small">Avversario: OVR ${teamByName(fx.opp)?teamByName(fx.opp).ovr:'?'}</div>
+      </div>
+      <div class="kv"><span>Forza tua (XI)</span><b>OVR ${avg}</b></div>
+      <div class="kv"><span>Modulo</span><b>${s.formation} · ${s.approach}</b></div>
+      ${probBar(matchProb(fx))}
+      <button class="btn primary block" style="margin-top:10px" onclick="advanceWeek()">▶ Avanza settimana & gioca</button>`:`<div class="empty">Stagione conclusa. Vai al Calendario.</div>`}
+    </div>
+  </div>
+  <div class="grid cols3" style="margin-top:12px">
+    <div class="card">
+      <h3>📈 Risorse</h3>
+      <div class="kv"><span>Budget</span><b>€${fmt(s.budget)}</b></div>
+      <div class="kv"><span>Tifosi</span><b>${fmtNum(s.fans)}</b></div>
+      <div class="kv"><span>Follower totali</span><b>${fmtNum(s.followers.instagram+s.followers.tiktok+s.followers.youtube)}</b></div>
+      <div class="kv"><span>Morale squadra</span><b>${Math.round(s.morale)}</b></div>
+      <div class="kv"><span>Hype social</span><b>${Math.round(s.hype)}</b></div>
+      <div class="kv"><span>Autorità allenatore</span><b>${Math.round(s.coachAuth)}</b></div>
+      <div class="kv"><span>Fedeltà tifosi</span><b>${Math.round(s.fanLoyalty)}</b></div>
+    </div>
+    <div class="card">
+      <h3>👥 Rosa</h3>
+      <div class="kv"><span>Giocatori</span><b>${s.squad.length}</b></div>
+      <div class="kv"><span>OVR medio rosa</span><b>${Math.round(mean(s.squad.map(effOvr)))}</b></div>
+      <div class="kv"><span>OVR XI titolare</span><b>${avg}</b></div>
+      <div class="kv"><span>Infortunati</span><b>${injured.length}</b></div>
+      <div class="kv"><span>Scontenti</span><b>${unhappy.length}</b></div>
+      <div class="kv"><span>Ingaggi rosa/sett</span><b>€${fmt(squadWageTotal())}</b></div>
+      <button class="btn sm block" style="margin-top:8px" onclick="setTab('rosa')">Gestisci rosa →</button>
+    </div>
+    <div class="card">
+      <h3>📰 Ultima notizia</h3>
+      ${s.news.slice(0,3).map(n=>`<div style="margin-bottom:8px"><div class="tiny muted">${n.t}</div><div>${n.m}</div></div>`).join('')||'<div class="empty">Nessuna notizia.</div>'}
+      <button class="btn sm block" style="margin-top:8px" onclick="setTab('news')">Tutte le notizie →</button>
+    </div>
+  </div>`;
+  document.getElementById('app').innerHTML=html;
+}
+function oppShort(nm){return nm.length>18?nm.slice(0,16)+'…':nm;}
+
+/* ============================== TAB: ROSA ============================== */
+function renderRosa(){
+  const xi=bestXI(); const xiIds=new Set(xi.map(p=>p.name));
+  const order={P:0,D:1,C:2,A:3};
+  const sorted=[...s.squad].sort((a,b)=>order[a.pos]-order[b.pos]||effOvr(b)-effOvr(a));
+  const rows=sorted.map(p=>{
+    const start=xiIds.has(p.name);
+    const fatCol=p.fatigue>70?'bad':p.fatigue>50?'warn':'';
+    const morCol=p.morale<40?'bad':p.morale<60?'warn':'';
+    return `<tr style="${start?'background:rgba(124,92,255,.07)':''}">
+      <td><span class="num" style="display:inline-block;width:24px;color:var(--muted)">${p.n}</span></td>
+      <td><span class="tag pos-${p.pos}">${p.pos}</span></td>
+      <td class="pname">${avatar(p.name,26)}${p.name}${p.captain?' <span class="tag" style="border-color:var(--gold);color:var(--gold)">C</span>':''}${p.real?'':' <span class="tiny muted">(fiction)</span>'}</td>
+      <td class="num">${p.age}</td>
+      <td class="num"><span class="ovr-pill">${effOvr(p)}</span></td>
+      <td class="num">${p.injured?'<span style="color:var(--bad)">🩹 '+p.injured+'s</span>':'-'}</td>
+      <td class="num ${morCol}">${Math.round(p.morale)}</td>
+      <td class="num ${fatCol}">${Math.round(p.fatigue)}</td>
+      <td class="num tiny muted">€${fmt(p.value)}</td>
+      <td class="num tiny muted">€${fmt(p.wage)}</td>
+      <td class="num">${start?'<span style="color:var(--good)">Titolare</span>':p.rested?'<span class="tag">Riposo</span>':'Panchina'}</td>
+      <td class="num"><button class="btn sm" onclick="playerDetail('${p.name.replace(/'/g,"\\'")}')">›</button></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="card">
+    <h3>👥 Rosa — Stagione ${s.season} (${CATEGORIES[s.catIndex].name})</h3>
+    <div class="sub">${s.squad.filter(p=>p.real).length} giocatori reali + eventuali acquisti. Click › per dettaglio, riposo o cessione.</div>
+    <div class="row" style="margin-bottom:10px">
+      <div><span class="tiny muted">Modulo</span><br><select onchange="s.formation=this.value;save();render()">
+        ${FORMATIONS.map(f=>`<option ${f===s.formation?'selected':''}>${f}</option>`).join('')}</select></div>
+      <div><span class="tiny muted">Approccio</span><br><select onchange="s.approach=this.value;save();render()">
+        ${APPROACHES.map(a=>`<option value="${a.id}" ${a.id===s.approach?'selected':''}>${a.label}</option>`).join('')}</select></div>
+      <div style="margin-left:auto;align-self:flex-end"><span class="tiny muted">Titolari auto-selezionati dai migliori per ruolo.</span></div>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th>#</th><th>Pos</th><th>Giocatore</th><th class="num">Età</th><th class="num">OVR</th><th class="num">Infort.</th><th class="num">Mor.</th><th class="num">Fatic.</th><th class="num">Valore</th><th class="num">Ingagg.</th><th class="num">Stato</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>`;
+}
+function playerDetail(name){
+  const p=s.squad.find(x=>x.name===name);if(!p)return;
+  const xi=bestXI();const start=xi.includes(p);
+  showModal(`<div class="row" style="align-items:center;gap:12px;margin-bottom:6px">${avatar(p.name,60)}<div><h3 style="margin:0">${p.name}</h3>
+    <div class="sub">${posLabel(p.pos)} · ${p.age} anni · #${p.n}${p.captain?' · Capitano':''}${p.real?'':' · Finzione di gioco'}</div></div></div>
+    <div class="kv"><span>Overall effettivo</span><b>${effOvr(p)} (base ${p.ovr})</b></div>
+    <div class="kv"><span>Morale</span><b>${Math.round(p.morale)}</b></div>
+    <div class="kv"><span>Affaticamento</span><b>${Math.round(p.fatigue)}</b></div>
+    <div class="kv"><span>Valore mercato</span><b>€${fmt(p.value)}</b></div>
+    <div class="kv"><span>Ingaggio settimanale</span><b>€${fmt(p.wage)}</b></div>
+    <div class="kv"><span>Contratto</span><b>${p.contract} stagioni</b></div>
+    ${p.injured?`<div class="notice bad">Infortunato: ${p.injured} settimane al rientro.</div>`:''}
+    ${p.unhappy?`<div class="notice warn">Scontento: il morale è basso e potrebbe chiedere la cessione.</div>`:''}
+    ${p.askLeave?`<div class="notice bad">Ha chiesto di essere ceduto.</div>`:''}
+    <div class="row" style="margin-top:12px">
+      <button class="btn sm" onclick="toggleRest('${name.replace(/'/g,"\\'")}')">${p.rested?'Rimuomi riposo':'Metti in riposo'}</button>
+      <button class="btn sm good" onclick="finePlayer('${name.replace(/'/g,"\\'")}')">Elogia (+morale, -€500)</button>
+      <button class="btn sm warn" onclick="finePlayer2('${name.replace(/'/g,"\\'")}')">Multa (-morale, +€1.000)</button>
+      <button class="btn sm bad" onclick="offerSale('${name.replace(/'/g,"\\'")}')">Metti sul mercato</button>
+    </div>
+    <div style="margin-top:12px"><button class="btn sm block" onclick="closeModal()">Chiudi</button></div>
+  `);
+}
+function toggleRest(name){const p=s.squad.find(x=>x.name===name);if(!p)return;p.rested=!p.rested;if(p.rested)p.fatigue=clamp(p.fatigue-10,0,100);pushNews(`${p.name} ${p.rested?'in riposo (recupera affaticamento)':'di nuovo disponibile come titolare'}.`);save();closeModal();render();}
+function finePlayer(name){const p=s.squad.find(x=>x.name===name);if(!p)return;if(s.budget<500)return alertToast('Cassa insufficiente.');s.budget-=500;p.morale=clamp(p.morale+8,0,100);pushNews(`${p.name} elogiato pubblicamente (+8 morale).`);save();closeModal();render();}
+function finePlayer2(name){const p=s.squad.find(x=>x.name===name);if(!p)return;s.budget+=1000;p.morale=clamp(p.morale-7,0,100);pushNews(`${p.name} multato (+€1.000, -7 morale).`);save();closeModal();render();}
+function offerSale(name){const p=s.squad.find(x=>x.name===name);if(!p)return;p.askLeave=true;pushNews(`${p.name} messo sul mercato. Cerca offerte nel tab Mercato.`);save();closeModal();setTab('mercato');}
+
+/* ============================== TAB: STAFF ============================== */
+function renderStaff(){
+  const rows=s.staff.map(x=>`<tr>
+    <td class="pname">${x.role}</td><td class="pname">${avatar(x.name,26)}${x.name}${x.real?'':' <span class="tiny muted">(fiction)</span>'}</td>
+    <td class="num"><span class="ovr-pill">${x.rating}</span></td>
+    <td class="num tiny muted">${x.wage?'€'+fmt(x.wage)+'/sett':'—'}</td>
+    <td class="tiny muted">${x.note||effectDesc(x.effect)}</td>
+    <td class="num">${x.real||x.role==='Presidente'||x.role.includes('Onorario')||x.role.includes('Vice Pres')?'':'<button class="btn sm bad" onclick="fireStaff(\''+x.name.replace(/'/g,"\\'")+'\')">Licenzia</button>'}</td>
+  </tr>`).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="card">
+    <h3>🧑‍💼 Staff & Dirigenza</h3>
+    <div class="sub">Lo staff reale della Zeta Milano 2026/27 (allenatore Fabio Mascetti, GM Cristian Brocchi, ecc.). Le figure societarie sono fisse; puoi assumere/licenziare collaboratori tecnici.</div>
+    <div class="row" style="margin-bottom:10px"><div class="tag">Ingaggi staff/sett: €${fmt(staffWageTotal())}</div>
+      <div class="tag">Rating allenatore: ${coachRating()}</div><div class="tag">Prep. atletico: ${athleticRating()}</div>
+      <div class="tag">DS: ${dsRating()}</div><button class="btn sm primary" style="margin-left:auto" onclick="openHireStaff()">+ Assumi collaboratore</button></div>
+    <table><thead><tr><th>Ruolo</th><th>Nome</th><th class="num">Rating</th><th class="num">Ingaggio</th><th>Effetto</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table>
+  </div>`;
+}
+function effectDesc(e){return {tactic:"Sviluppo tattico e forza squadra",assist:"Apporto all'allenatore",gk:"Sviluppo portieri",athletic:"Recupero affaticamento, infortuni",analyst:"Lettura avversari (piccolo bonus)",ds:"Qualità offerte di mercato",tm:"Gestione morale spogliatoio",gm:"Relazione investitori",vp:"Stabilità club",hon:"Attrattiva investitori",pres:"Tutto"}[e]||"";}
+function openHireStaff(){
+  const roles=[{role:"Vice Allenatore",effect:"assist"},{role:"Prep. Atletico",effect:"athletic"},{role:"Prep. Portieri",effect:"gk"},{role:"Match Analyst",effect:"analyst"},{role:"Osservatore",effect:"ds"},{role:"Team Manager",effect:"tm"}];
+  const cands=roles.map(r=>({role:r.role,effect:r.effect,rating:rand(55,75),wage:rand(400,900),name:genPersonName()})).sort((a,b)=>b.rating-a.rating);
+  showModal(`<h3>Assumi collaboratore</h3><div class="sub">Tre candidati fittizi per il tuo staff.</div>
+    <div class="choices">${cands.map((c,i)=>`<button class="choice" onclick="hireStaff(${i})"><b>${c.role} — ${c.name}</b> <span class="ovr-pill">${c.rating}</span><small>€${fmt(c.wage)}/sett · ${effectDesc(c.effect)}</small></button>`).join('')}</div>
+    <button class="btn sm block" style="margin-top:10px" onclick="closeModal()">Annulla</button>`,true);
+  window._hireCands=cands;
+}
+function hireStaff(i){const c=window._hireCands[i];if(s.staff.some(x=>x.role===c.role&&x.effect===c.effect)){s.staff=s.staff.filter(x=>!(x.role===c.role&&x.effect===c.effect));}s.staff.push({...c,real:false});pushNews(`Assunto ${c.name} come ${c.role} (rating ${c.rating}).`);save();closeModal();render();}
+function fireStaff(name){s.staff=s.staff.filter(x=>x.name!==name);pushNews(`Licenziato ${name} dallo staff.`);save();render();}
+
+/* ============================== TAB: ALLENAMENTO ============================== */
+function renderAllenamento(){
+  const f=TRAINING_FOCUSES.find(x=>x.id===s.training.focus);
+  const gainPreview=f.ovrGain.map(([pos,g])=>`+${g.toFixed(1)} OVR/sett ${posLabel(pos)}`).join(', ')||'Nessun guadagno OVR';
+  const html=`
+  <div class="grid cols2">
+    <div class="card">
+      <h3>🏃 Seduta di allenamento</h3>
+      <div class="sub">La seduta viene applicata automaticamente ogni settimana quando premi "Avanza". Scegli focus e intensità.</div>
+      <div class="kv"><span>Allenatore</span><b>${staffBy('tactic')?staffBy('tactic').name:'—'} (${coachRating()})</b></div>
+      <div class="kv"><span>Prep. atletico</span><b>${staffBy('athletic')?staffBy('athletic').name:'—'} (${athleticRating()})</b></div>
+      <div class="kv"><span>Centro allenamento</span><b>Livello ${s.facilities.training}</b></div>
+      <label class="tiny muted">Focus settimanale</label>
+      <select style="width:100%" onchange="s.training.focus=this.value;save();render()">
+        ${TRAINING_FOCUSES.map(x=>`<option value="${x.id}" ${x.id===s.training.focus?'selected':''}>${x.label}</option>`).join('')}</select>
+      <div class="kv" style="margin-top:8px"><span>Effetto previsto</span><b class="small">${gainPreview}</b></div>
+      <div class="kv"><span>Variazione morale</span><b>${f.morale>0?'+':''}${f.morale}</b></div>
+      <div class="kv"><span>Variazione affaticamento</span><b>${f.fatigue>0?'+':''}${f.fatigue}</b></div>
+    </div>
+    <div class="card">
+      <h3>⚡ Intensità</h3>
+      <div class="sub">Più intensa = più sviluppo ma più affaticamento e rischio infortuni.</div>
+      ${[['leggera','Leggera — sviluppo 60%, fatica 60%, infortuni rari'],['media','Media — sviluppo 100%'],['intensa','Intensa — sviluppo 140%, fatica 150%, rischio infortuni +']].map(([id,l])=>
+        `<button class="btn block ${s.training.intensity===id?'primary':''}" style="margin-bottom:8px" onclick="s.training.intensity='${id}';save();render()">${l}</button>`).join('')}
+      <div class="notice info" style="margin-top:6px">Recupero attivo: i giocatori non titolari recuperano affaticamento automaticamente ogni settimana.</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <h3>🌱 Sviluppo rosa (ultimi valori)</h3>
+    <div class="scroll"><table><thead><tr><th>Giocatore</th><th>Pos</th><th class="num">Età</th><th class="num">OVR base</th><th class="num">Effettivo</th><th class="num">Morale</th><th class="num">Fatica</th></tr></thead>
+    <tbody>${[...s.squad].sort((a,b)=>effOvr(b)-effOvr(a)).map(p=>`<tr><td class="pname">${p.name}</td><td><span class="tag pos-${p.pos}">${p.pos}</span></td><td class="num">${p.age}</td><td class="num">${p.ovr}</td><td class="num"><span class="ovr-pill">${effOvr(p)}</span></td><td class="num">${Math.round(p.morale)}</td><td class="num">${Math.round(p.fatigue)}</td></tr>`).join('')}</tbody></table></div>
+  </div>`;
+  document.getElementById('app').innerHTML=html;
+}
+
+/* ============================== TAB: STRUTTURE ============================== */
+function renderStrutture(){
+  const cards=FACILITY_DEFS.map(d=>{
+    const lvl=s.facilities[d.key];const maxed=lvl>=d.max;const cost=facilityCost(d.key);
+    return `<div class="card">
+      <h3>${d.icon} ${d.label}</h3>
+      <div class="sub">${d.desc}</div>
+      <div class="bar ${lvl>=5?'good':lvl>=3?'':'warn'}" style="margin:8px 0"><span style="width:${(lvl/d.max)*100}%"></span></div>
+      <div class="kv"><span>Livello</span><b>${lvl} / ${d.max}</b></div>
+      ${maxed?`<div class="notice good">Livello massimo raggiunto.</div>`:`<button class="btn primary block" onclick="upgradeFacility('${d.key}')" ${s.budget<cost?'disabled':''}>Upgrade → €${fmt(cost)}${s.budget<cost?' (cassa insufficiente)':''}</button>`}
+    </div>`;
+  }).join('');
+  document.getElementById('app').innerHTML=`<div class="card" style="margin-bottom:12px"><h3>🏟️ Strutture del club</h3><div class="sub">Centro sportivo attuale: <b>Centro Sportivo Cilissone, Lissone (MB)</b> (reale). Investi per crescere più forte e incassare di più.</div></div><div class="grid cols3">${cards}</div>`;
+}
+function upgradeFacility(key){const cost=facilityCost(key);if(s.budget<cost)return alertToast('Cassa insufficiente.');const def=FACILITY_DEFS.find(d=>d.key===key);if(s.facilities[key]>=def.max)return;s.budget-=cost;s.facilities[key]++;pushNews(`Strutture: ${def.label} portata a livello ${s.facilities[key]} (€${fmt(cost)}).`);save();render();}
+
+/* ============================== NOMI / GENERATORI ============================== */
+const NAMES_F=["Alessandro","Marco","Matteo","Lorenzo","Francesco","Davide","Andrea","Federico","Giovanni","Luca","Riccardo","Simone","Tommaso","Gabriele","Edoardo","Christian","Nicola","Stefano","Filippo","Diego","Youssef","Mamadou","Bryan","Pablo","Ivan","Daniel","Amir","Mirko"];
+const NAMES_L=["Rossi","Russo","Ferrari","Esposito","Bianchi","Romano","Colombo","Ricci","Marino","Greco","Bruno","Gallo","Conti","De Luca","Mancini","Costa","Giordano","Rizzo","Lombardi","Moretti","Barbieri","Fontana","Santoro","Mariani","Guidi","Lombardo","Ferri","Caruso","Villa","Pellegrini"];
+function genPersonName(){return pick(NAMES_F)+' '+pick(NAMES_L);}
+
+/* ============================== RENDER DISPATCH ============================== */
+function renderTab(){
+  const app=document.getElementById('app');
+  const map={panoramica:renderDashboard,rosa:renderRosa,staff:renderStaff,allenamento:renderAllenamento,strutture:renderStrutture,mercato:renderMercato,social:renderSocial,sponsor:renderSponsor,investitori:renderInvestitori,calendario:renderCalendario,classifica:renderClassifica,realworld:renderRealWorld,news:renderNews};
+  (map[tab]||renderDashboard)();
+}
+
+/* ============================== MODALI ============================== */
+function showModal(html,wide){const box=document.getElementById('modal-box');box.className='box'+(wide?' wide':'');box.innerHTML=html;document.getElementById('modal').classList.add('show');}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+function alertToast(msg){showModal(`<h3>⚠️</h3><p>${msg}</p><button class="btn primary block" style="margin-top:10px" onclick="closeModal()">Ok</button>`);}
+
+/* ============================== TAB: MERCATO ============================== */
+function generateMarket(){
+  const cat=CATEGORIES[s.catIndex];
+  const dsBoost=(dsRating()-60)/20;
+  const list=[];
+  for(let i=0;i<14;i++){
+    const pos=pick(['P','D','D','C','C','C','A','A']);
+    const age=rand(17,33);
+    const ovr=Math.round(cat.baseOvr+(Math.random()*2-1)*cat.var+(Math.random()<0.22?3:0));
+    const p={name:genPersonName(),pos,age,ovr,real:false};
+    p.value=pVal(p);p.wage=pWage(p);
+    p.ask=Math.round(p.value*(0.95-dsBoost*0.1)*(0.85+Math.random()*0.3));
+    list.push(p);
+  }
+  s.marketGen=list;
+}
+function renderMercato(){
+  if(!s.marketGen)generateMarket();
+  const buys=s.marketGen.map((p,i)=>`<div class="list-item">
+    <span class="tag pos-${p.pos}">${p.pos}</span>
+    <div style="min-width:0"><div class="nm">${p.name}</div><div class="tiny muted">${p.age} anni · €${fmt(p.wage)}/sett</div></div>
+    <div class="meta"><span class="ovr-pill">${p.ovr}</span><b>€${fmt(p.ask)}</b><button class="btn sm good" onclick="buyPlayer(${i})" ${s.budget<p.ask?'disabled':''}>Acquista</button></div>
+  </div>`).join('');
+  const sells=s.squad.map((p,i)=>`<div class="list-item">
+    <span class="tag pos-${p.pos}">${p.pos}</span>
+    <div style="min-width:0"><div class="nm">${p.name}${p.askLeave?' <span class="tag" style="border-color:var(--bad);color:var(--bad)">sul mercato</span>':''}</div><div class="tiny muted">OVR ${effOvr(p)} · val €${fmt(p.value)}</div></div>
+    <div class="meta"><b>€${fmt(Math.round(p.askLeave?p.value:p.value*0.8))}</b><button class="btn sm bad" onclick="sellPlayer(${i})">Cedi</button></div>
+  </div>`).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="card"><h3>🔄 Mercato — ${CATEGORIES[s.catIndex].name}</h3>
+  <div class="sub">DS: ${staffBy('ds')?staffBy('ds').name:'—'} (${dsRating()}). Budget: €${fmt(s.budget)}. I giocatori in lista sono finzione di gioco.</div>
+  <button class="btn sm" style="margin-bottom:10px" onclick="generateMarket();save();render()">↻ Rigenera offerte</button>
+  <h4>Acquistabili</h4><div>${buys||'<div class="empty">Nessuna offerta.</div>'}</div></div>
+  <div class="card" style="margin-top:12px"><h3>📤 Cessioni</h3><div class="sub">Cedi un giocatore della rosa (prezzo = valore se sul mercato, -20% altrimenti). Minimo 14 in rosa.</div>${sells}</div>`;
+}
+function buyPlayer(i){const p=s.marketGen[i];if(!p||s.budget<p.ask)return alertToast('Cassa insufficiente.');s.budget-=p.ask;const np={...p,morale:65,fatigue:0,injured:0,contract:rand(2,4),unhappy:false,askLeave:false};np.value=pVal(np);np.wage=pWage(np);s.squad.push(np);s.marketGen.splice(i,1);pushNews(`Acquisto: ${np.name} (${posLabel(np.pos)}, OVR ${np.ovr}) per €${fmt(p.ask)}.`);save();render();}
+function sellPlayer(i){const p=s.squad[i];if(!p)return;if(s.squad.length<=14)return alertToast('Serve una rosa minima di 14 giocatori.');const price=Math.round(p.askLeave?p.value:p.value*0.8);s.budget+=price;s.squad.splice(i,1);pushNews(`Cessione: ${p.name} per €${fmt(price)}.`);save();render();}
+
+/* ============================== TAB: SOCIAL ============================== */
+function renderSocial(){
+  const tot=Math.round(s.followers.instagram+s.followers.tiktok+s.followers.youtube);
+  const cards=SOCIAL_PLATFORMS.map(pl=>`<div class="card"><h3>${pl.icon} ${pl.label}</h3><div class="score" style="font-size:22px">${fmtNum(s.followers[pl.key])}</div><div class="muted tiny">follower</div></div>`).join('');
+  const posts=SOCIAL_POSTS.map(p=>`<button class="choice" onclick="doSocial('${p.id}')" ${s.socialPosts>=2?'disabled style="opacity:.5;cursor:not-allowed"':''}><b>${p.icon} ${p.label}</b><small>${p.desc}</small></button>`).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="grid cols3">${cards}
+    <div class="card"><h3>📊 Totale</h3><div class="score" style="font-size:22px;color:var(--gold)">${fmtNum(tot)}</div><div class="muted tiny">follower totali</div>
+    <div class="bar" style="margin-top:8px"><span style="width:${s.hype}%"></span></div><div class="tiny muted">Hype: ${Math.round(s.hype)}/100 · Studio social livello ${s.facilities.social}</div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><h3>📱 Pubblica contenuto</h3><div class="sub">Max 2 contenuti/settimana. Ogni post muove follower, hype, morale e sponsor.</div>
+  <div class="notice info">Contenuti pubblicati questa settimana: ${s.socialPosts}/2</div>
+  <div class="choices">${posts}</div></div>`;
+}
+function doSocial(id){if(s.socialPosts>=2)return alertToast('Massimo 2 contenuti social per settimana.');const post=SOCIAL_POSTS.find(p=>p.id===id);const res=post.apply(s);s.socialPosts++;pushNews('Social: '+res.msg);save();render();}
+
+/* ============================== TAB: SPONSOR ============================== */
+function demandMet(sp){const d=sp.demand;if(!d)return true;const z=teamByName('FC Zeta Milano');if(d.type==='social')return s.hype>=d.threshold;if(d.type==='result')return z&&z.played?(z.w/z.played)>=d.threshold:false;if(d.type==='promote')return false;return true;}
+function renderSponsor(){
+  const monthly=s.sponsors.reduce((t,x)=>t+x.monthly,0);
+  const rows=s.sponsors.map((sp,i)=>{const met=demandMet(sp);return `<tr>
+    <td class="pname">${sp.name}${sp.real?' <span class="tag" style="border-color:var(--good);color:var(--good)">reale</span>':''}</td>
+    <td>${sp.type}</td><td class="num">€${fmt(sp.monthly)}/mese</td>
+    <td class="num"><div class="bar ${sp.happy<40?'bad':sp.happy<65?'warn':'good'}" style="width:80px;display:inline-block;vertical-align:middle"><span style="width:${sp.happy}%"></span></div> ${Math.round(sp.happy)}</td>
+    <td class="tiny">${sp.demand?sp.demand.label:'—'} <span style="color:${met?'var(--good)':'var(--bad)'}">${met?'✓':'✗'}</span></td>
+    <td class="num"><button class="btn sm bad" onclick="dropSponsor(${i})">Rescindi</button></td>
+  </tr>`;}).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="card"><h3>💼 Sponsor & Partner</h3><div class="sub">Entrate sponsor: €${fmt(monthly)}/mese (≈ €${fmt(Math.round(monthly/4))}/sett). Como 1907 = partner reale; gli altri sponsor di gioco sono finzione.</div>
+  <button class="btn sm primary" style="margin-bottom:10px" onclick="openSponsorOffers()" ${s.sponsorOffers!==null?'disabled':''}>${s.sponsorOffers!==null?'Offerte già viste questa stagione':'Cerca nuovi sponsor'}</button>
+  <table><thead><tr><th>Sponsor</th><th>Tipo</th><th class="num">Canone</th><th class="num">Felicità</th><th>Richiesta</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function dropSponsor(i){const sp=s.sponsors[i];if(!sp)return;s.sponsors.splice(i,1);pushNews(`Rescindito accordo con ${sp.name}.`);save();render();}
+function openSponsorOffers(){
+  const cat=CATEGORIES[s.catIndex];
+  const n=2+(s.hype>60?1:0);
+  const types=["Sponsor di Maglia","Sponsor Tecnico","Partner Locale","Partner Istituzionale"];
+  const names=["Birrificio Meneghino","EnergyMilano","StudioLegale24","DriveVerde","FerroMilano","MilanoFit","QuarkTech","RisoSole","NaviglioBank","CaffèMilano"];
+  const offers=[];
+  for(let i=0;i<n;i++){const monthly=Math.round((3000+cat.baseOvr*120)*(0.7+Math.random()*0.6)*(1+s.catIndex*0.3)*(1+s.hype/200));const thr=pick([{type:"social",val:rand(45,60)},{type:"result",val:0.4}]);offers.push({name:pick(names),type:pick(types),monthly,happy:70,real:false,demand:{type:thr.type,threshold:thr.val,label:(thr.type==="social"?"Hype social ≥ "+thr.val:"Vittorie ≥ 40%")}});}
+  s.sponsorOffers=offers;
+  showModal(`<h3>Nuove offerte sponsor</h3><div class="sub">Proporzionate a categoria e hype.</div>
+  <div class="choices">${offers.map((o,i)=>`<button class="choice" onclick="acceptSponsor(${i})"><b>${o.name}</b> — ${o.type}<small>€${fmt(o.monthly)}/mese · richiesta: ${o.demand.label}</small></button>`).join('')}</div>
+  <button class="btn sm block" style="margin-top:10px" onclick="closeModal()">Chiudi</button>`,true);
+}
+function acceptSponsor(i){const o=s.sponsorOffers[i];if(!o)return;s.sponsors.push({...o,demand:{...o.demand}});pushNews(`Nuovo sponsor: ${o.name} (€${fmt(o.monthly)}/mese).`);save();closeModal();render();}
+
+/* ============================== TAB: INVESTITORI ============================== */
+function renderInvestitori(){
+  const rows=s.investors.map((inv,i)=>`<tr>
+    <td class="pname">${inv.name}${inv.real?' <span class="tag" style="border-color:var(--good);color:var(--good)">reale</span>':''}</td>
+    <td>${inv.role}</td><td class="num">€${fmt(inv.capital)}</td>
+    <td class="num"><div class="bar ${inv.conf<40?'bad':inv.conf<60?'warn':'good'}" style="width:80px;display:inline-block;vertical-align:middle"><span style="width:${inv.conf}%"></span></div> ${Math.round(inv.conf)}</td>
+    <td class="tiny">${inv.demand?inv.demand.label:'—'}</td>
+    <td class="num">${inv.capital>0&&inv.conf>=55?`<button class="btn sm primary" onclick="requestCapital(${i})">Richiedi €${fmt(inv.capital)}</button>`:'—'}</td>
+  </tr>`).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="card"><h3>💰 Investitori</h3><div class="sub">Blur (Gianmarco Tocco) e Pellegrino sono soci reali. Capitali e confidenza sono finzione di gioco. Confidenza alta = capitale disponibile; bassa = rischio ritiro.</div>
+  <button class="btn sm primary" style="margin-bottom:10px" onclick="openInvestorOffers()" ${s.investorOffers!==null?'disabled':''}>Cerca nuovi investitori</button>
+  <table><thead><tr><th>Investitore</th><th>Ruolo</th><th class="num">Capitale disp.</th><th class="num">Confidenza</th><th>Aspettativa</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function requestCapital(i){const inv=s.investors[i];if(!inv||inv.capital<=0||inv.conf<55)return alertToast('Capitale non disponibile o confidenza troppo bassa.');const give=inv.capital;s.budget+=give;inv.capital=0;inv.conf=clamp(inv.conf-12,0,100);pushNews(`Investitore ${inv.name}: iniettati €${fmt(give)} (confidenza -12).`);save();render();}
+function openInvestorOffers(){
+  const tot=s.followers.instagram+s.followers.tiktok+s.followers.youtube;
+  if(tot<700000){s.investorOffers=[];showModal(`<h3>Nessun investitore interessato</h3><p>Follower totali (${fmtNum(tot)}) ancora troppo pochi. Supera 700k per attrarre capitali.</p><button class="btn sm block" style="margin-top:10px" onclick="closeModal()">Chiudi</button>`,true);return;}
+  const n=1+(s.catIndex>=2?1:0);
+  const names=["GoldFund Ventures","Milano Capital Partners","SportEquity","NordEst Invest","CrowdSport","Brioschi Holding"];
+  const offers=[];
+  for(let i=0;i<n;i++){offers.push({name:pick(names),role:"Investitore di minoranza",capital:Math.round((150000+s.catIndex*120000)*(0.8+Math.random()*0.6)),conf:65,real:false,demand:{type:"promote",label:"Promozione entro 2 stagioni"}});}
+  s.investorOffers=offers;
+  showModal(`<h3>Offerte di investimento</h3><div class="sub">Capitali proporzionati alla categoria.</div>
+  <div class="choices">${offers.map((o,i)=>`<button class="choice" onclick="acceptInvestor(${i})"><b>${o.name}</b> — ${o.role}<small>€${fmt(o.capital)} disponibili · confidenza ${o.conf} · ${o.demand.label}</small></button>`).join('')}</div>
+  <button class="btn sm block" style="margin-top:10px" onclick="closeModal()">Chiudi</button>`,true);
+}
+function acceptInvestor(i){const o=s.investorOffers[i];if(!o)return;s.investors.push({...o});pushNews(`Nuovo investitore in società: ${o.name} (€${fmt(o.capital)}).`);save();closeModal();render();}
+
+/* ============================== TAB: CALENDARIO / CLASSIFICA / NEWS ============================== */
+function renderCalendario(){
+  const fx=nextFixture();
+  const rows=s.league.fixtures.map(f=>{const t=teamByName(f.opp);return `<tr style="${f.md===s.league.md?'background:rgba(124,92,255,.10)':''}">
+    <td class="num">${f.md}</td><td>${f.home?'🏠':'✈️'} ${f.opp}</td><td class="num">${t?t.ovr:'?'}</td>
+    <td class="num">${f.played?`${f.played.gf}-${f.played.gs}`:'—'}</td><td class="num">${f.played?(f.played.gf>f.played.gs?'<span style="color:var(--good)">V</span>':f.played.gf<f.played.gs?'<span style="color:var(--bad)">S</span>':'P'):''}</td>
+  </tr>`;}).join('');
+  const top5=tableSorted().slice(0,5).map((t,i)=>`<tr><td class="num">${i+1}</td><td class="pname" style="${t.isZeta?'color:var(--accent2)':''}">${t.name}${t.isZeta?' ★':''}</td><td class="num">${t.pts}</td></tr>`).join('');
+  document.getElementById('app').innerHTML=`
+  <div class="grid cols2">
+    <div class="card"><h3>📅 Calendario — ${CATEGORIES[s.catIndex].name}</h3>
+    ${fx?`<div class="notice info">Prossima: ${fx.home?'casa':'trasferta'} vs ${fx.opp} (sett. ${s.week}).</div>${probBar(matchProb(fx))}`:`<div class="notice warn">Stagione in corso di chiusura.</div>`}
+    <button class="btn primary block" style="margin:10px 0" onclick="advanceWeek()" ${!fx?'disabled':''}>▶ Avanza settimana & gioca</button>
+    <div class="scroll"><table><thead><tr><th class="num">G</th><th>Avversario</th><th class="num">OVR</th><th class="num">Ris.</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div>
+    <div class="card"><h3>🏆 Top 5</h3><table><thead><tr><th class="num">#</th><th>Squadra</th><th class="num">Pt</th></tr></thead><tbody>${top5}</tbody></table>
+    <button class="btn sm block" style="margin-top:10px" onclick="setTab('classifica')">Classifica completa →</button></div>
+  </div>`;
+}
+function renderClassifica(){
+  const rows=tableSorted().map((t,i)=>`<tr style="${t.isZeta?'background:rgba(34,211,238,.08)':''}">
+    <td class="num">${i+1}</td><td class="pname" style="${t.isZeta?'color:var(--accent2)':''}">${t.name}${t.isZeta?' ★':''}</td>
+    <td class="num">${t.played}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td>
+    <td class="num">${t.gf}:${t.gs}</td><td class="num"><b>${t.pts}</b></td></tr>`).join('');
+  document.getElementById('app').innerHTML=`<div class="card"><h3>🏆 Classifica — ${CATEGORIES[s.catIndex].name} (Girone ${CATEGORIES[s.catIndex].girone})</h3>
+  <div class="sub">1° = promozione diretta · 2°-3° = spareggio promozione · 13°-14° = retrocessione.</div>
+  <table><thead><tr><th class="num">#</th><th>Squadra</th><th class="num">G</th><th class="num">V</th><th class="num">N</th><th class="num">P</th><th class="num">GF:GS</th><th class="num">Pt</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function renderNews(){
+  document.getElementById('app').innerHTML=`<div class="card"><h3>📰 Diario societario</h3><div class="sub">Cronologia degli eventi della stagione.</div>
+  <div class="scroll" style="max-height:70vh">${s.news.map(n=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><div class="tiny muted">${n.t}</div><div>${n.m}</div></div>`).join('')||'<div class="empty">Nessuna notizia.</div>'}</div></div>`;
+}
+
+/* ============================== CICLO DI GIOCO ============================== */
+function advanceWeek(){
+  if(!s||s.gameOver||s.won)return;
+  s.socialPosts=0;
+  applyTraining();
+  recoverWeek();
+  applyFinances();
+  if(chance(0.55)&&s.league.md<=13){triggerEvent();return;}
+  playAndAdvance();
+}
+function applyTraining(){
+  const f=TRAINING_FOCUSES.find(x=>x.id===s.training.focus);
+  const intens={leggera:0.6,media:1,intensa:1.4}[s.training.intensity]||1;
+  const facBonus=1+(s.facilities.training-1)*0.10;
+  const coachBonus=1+(coachRating()-60)/120;
+  s.squad.forEach(p=>{
+    if(p.injured)return;
+    const gain=f.ovrGain.find(([pos])=>pos===p.pos);
+    if(gain){
+      let g=gain[1]*intens*facBonus*coachBonus*(p.age<=22?1.2:p.age>=31?0.6:1)*(0.7+p.morale/250);
+      p.ovr=Math.round((p.ovr+g)*10)/10;
+      p.ovr=clamp(p.ovr,20,99);
+      p.value=pVal(p);p.wage=pWage(p);
+    }
+    p.fatigue=clamp(p.fatigue+f.fatigue*intens,0,100);
+    p.morale=clamp(p.morale+f.morale,0,100);
+  });
+  s.morale=clamp(s.morale+f.morale*0.3,0,100);
+}
+function recoverWeek(){
+  const xi=bestXI();
+  s.squad.forEach(p=>{
+    if(p.injured){p.injured--;if(p.injured<=0){p.injured=0;pushNews(`${p.name} rientrato dall'infortunio.`);}}
+    else{const base=xi.includes(p)?10:18;const med=s.facilities.medical*2;p.fatigue=clamp(p.fatigue-base-med,0,100);}
+  });
+}
+function applyFinances(){
+  const wages=squadWageTotal()+staffWageTotal();
+  s.budget-=wages;
+  s.budget+=s.sponsors.reduce((t,x)=>t+x.monthly,0)/4;
+  s.budget+=Math.round(s.fans*0.4*(1+s.facilities.merch*0.15)*(1+s.catIndex*0.2));
+}
+function triggerEvent(){
+  const pool=EVENT_POOL.filter(e=>(e.minCat||0)<=s.catIndex);
+  if(!pool.length){playAndAdvance();return;}
+  const total=pool.reduce((t,e)=>t+e.weight,0);
+  let r=Math.random()*total,ev=pool[0];
+  for(const e of pool){r-=e.weight;if(r<=0){ev=e;break;}}
+  let targetPlayer=null,sponsor=null,investor=null,value=0,weeks=0;
+  if(ev.needsPlayer){const elig=s.squad.filter(p=>!p.injured);if(!elig.length){playAndAdvance();return;}targetPlayer=pick(elig);}
+  if(ev.needsSponsor&&s.sponsors.length)sponsor=pick(s.sponsors);
+  if(ev.needsInvestor&&s.investors.length)investor=pick(s.investors);
+  if(ev.id==='offer_player')value=Math.round((targetPlayer?pVal(targetPlayer):0)*(0.7+Math.random()*0.4));
+  if(ev.id==='injury')weeks=Math.max(1,rand(2,5)-Math.floor(s.facilities.medical/2));
+  const text=ev.text
+    .replace('{P}',targetPlayer?targetPlayer.name:'un giocatore')
+    .replace('{V}',fmt(value))
+    .replace('{W}',weeks)
+    .replace('{S}',sponsor?sponsor.name:'lo sponsor')
+    .replace('{I}',investor?investor.name:'l\'investitore');
+  window._curEvent={ev,targetPlayer,sponsor,investor,value,weeks};
+  const choices=ev.choices.map((c,i)=>`<button class="choice" onclick="resolveEvent(${i})"><b>${c.label}</b><small>${c.sub||''}</small></button>`).join('');
+  showModal(`<div class="notice warn" style="margin-bottom:10px">📰 EVENTO DELLA SETTIMANA</div><h2>${ev.title}</h2><p style="margin-top:6px">${text}</p><div class="choices">${choices}</div>`,true);
+}
+function resolveEvent(i){
+  const C=window._curEvent;if(!C)return;
+  const ch=C.ev.choices[i];
+  let res;
+  try{res=ch.fn(C.targetPlayer,C.value,C.weeks,C.sponsor,C.investor);}catch(e){res="Gestito.";}
+  pushNews('Evento — '+C.ev.title+': '+res);
+  closeModal();
+  save();
+  playAndAdvance();
+}
+function removePlayer(p){s.squad=s.squad.filter(x=>x!==p);}
+
+function playAndAdvance(){
+  const fx=nextFixture();
+  if(fx){const r=playMatch(fx);simOthers();showMatchModal(r);return;}
+  afterMatch();
+}
+function playMatch(fx){
+  const opp=teamByName(fx.opp);
+  const ts=teamStrength(fx.home);
+  const os=oppStrength(opp.ovr,fx.home);
+  const app=APPROACHES.find(a=>a.id===s.approach);
+  const zg=poisson(clamp(ts/os*1.2*app.atk*(fx.home?1.05:0.95),0.12,5));
+  const og=poisson(clamp(os/ts*1.2/app.def*(fx.home?0.9:1.1),0.12,5));
+  const xi=bestXI();
+  const scorers=[];
+  for(let i=0;i<zg;i++){const sc=pickScorer(xi);if(sc)scorers.push(sc);}
+  xi.forEach(p=>{p.fatigue=clamp(p.fatigue+rand(6,11),0,100);});
+  xi.forEach(p=>{if(chance(Math.max(0.005,0.035-s.facilities.medical*0.004))){p.injured=rand(1,3);pushNews(`Infortunio in gara: ${p.name} (${p.injured} sett).`);}});
+  const gf=zg,gs=og;
+  const zeta=teamByName('FC Zeta Milano');
+  zeta.played++;zeta.gf+=gf;zeta.gs+=gs;
+  opp.played++;opp.gf+=gs;opp.gs+=gf;
+  let zpts,mdelta,strongOpp=opp.ovr>ts,weakOpp=opp.ovr<ts-6;
+  if(gf>gs){zpts=3;opp.l++;zeta.w++;mdelta=strongOpp?7:5;s.morale=clamp(s.morale+mdelta,0,100);}
+  else if(gf<gs){zpts=0;opp.w++;zeta.l++;mdelta=weakOpp?7:4;s.morale=clamp(s.morale-mdelta,0,100);mdelta=-mdelta;}
+  else{zpts=1;opp.d++;zeta.d++;mdelta=strongOpp?1:-1;s.morale=clamp(s.morale+mdelta,0,100);}
+  zeta.pts+=zpts;opp.pts+=(gf<gs?3:gf>gs?0:1);
+  fx.played={gf,gs,scorers};
+  s.lastResult={gf,gs,opp:opp.name,home:fx.home,scorers};
+  if(fx.home){const gate=Math.round(s.fans*0.25*(1+s.facilities.stadium*0.1)*(1+s.catIndex*0.3));s.budget+=gate;pushNews(`Incasso botteghino: +€${fmt(gate)}.`);}
+  const fanDelta=Math.round((gf>gs?(30+s.hype*0.4):gf<gs?-(20+s.hype*0.2):5)*(1+s.facilities.stadium*0.05));
+  s.fans=Math.max(200,s.fans+fanDelta);
+  s.hype=clamp(s.hype+(gf>gs?2:gf<gs?-2:0),0,100);
+  s.sponsors.forEach(sp=>{sp.happy=clamp(sp.happy+(gf>gs?2:gf<gs?-3:0),0,100);});
+  pushNews(`Risultato: Zeta ${gf}-${gs} ${opp.name} (${fx.home?'casa':'trasferta'}). ${gf>gs?'Vittoria!':gf<gs?'Sconfitta.':'Pareggio.'}`);
+  return {gf,gs,opp:opp.name,home:fx.home,scorers,zpts,moraleDelta:mdelta,strongOpp,weakOpp};
+}
+function pickScorer(xi){const w=xi.map(p=>({p,w:p.pos==='A'?5:p.pos==='C'?2:p.pos==='D'?0.6:0.1}));const tot=w.reduce((t,x)=>t+x.w,0);let r=Math.random()*tot;for(const x of w){r-=x.w;if(r<=0)return x.p.name;}return xi[0]?xi[0].name:'—';}
+function simOthers(){
+  const md=s.league.md;
+  const fx=s.league.fixtures.find(f=>f.md===md);
+  const zetaOpp=fx?teamByName(fx.opp):null;
+  const pool=s.league.teams.filter(t=>!t.isZeta&&t!==zetaOpp);
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+  for(let i=0;i+1<pool.length;i+=2){
+    const a=pool[i],b=pool[i+1];
+    const ga=poisson(clamp(a.ovr/b.ovr*1.2,0.1,5)),gb=poisson(clamp(b.ovr/a.ovr*1.2,0.1,5));
+    a.played++;b.played++;a.gf+=ga;a.gs+=gb;b.gf+=gb;b.gs+=ga;
+    if(ga>gb){a.w++;b.l++;a.pts+=3;}else if(ga<gb){b.w++;a.l++;b.pts+=3;}else{a.d++;b.d++;a.pts++;b.pts++;}
+  }
+}
+function showMatchModal(r){
+  const win=r.gf>r.gs,loss=r.gf<r.gs;
+  const cls=win?'good':loss?'bad':'warn';
+  showModal(`<div class="notice ${cls}" style="margin-bottom:8px">${win?'🎉 VITTORIA':loss?'💥 SCONFITTA':'🤝 PAREGGIO'} · ${r.home?'Casa':'Trasferta'}</div>
+    <div class="center" style="margin:14px 0"><div class="score">ZETA <b>${r.gf}</b> <span class="vs">-</span> <b>${r.gs}</b> ${oppShort(r.opp)}</div></div>
+    <div class="muted center small">Marcatori Zeta: ${r.scorers.length?r.scorers.join(', '):'—'}</div>
+    <div class="kv" style="margin-top:12px"><span>Punti in classifica</span><b>+${r.zpts}</b></div>
+    <div class="kv"><span>Variazione morale</span><b style="color:${r.moraleDelta>0?'var(--good)':r.moraleDelta<0?'var(--bad)':'var(--muted)'}">${r.moraleDelta>0?'+':''}${r.moraleDelta}</b></div>
+    <button class="btn primary block" style="margin-top:12px" onclick="afterMatch()">Continua ›</button>`,true);
+}
+function afterMatch(){
+  closeModal();
+  s.league.md++;s.week++;
+  s.coachAuth=clamp(s.coachAuth+(70-s.coachAuth)*0.05,0,100);
+  s.hype=clamp(s.hype-1,0,100);
+  if(s.budget<-180000){gameOver('Bancarotta: la cassa è troppo in rosso, il club entra in liquidazione.');return;}
+  if(s.league.md>13){endSeason();return;}
+  save();render();
+}
+
+function endSeason(){
+  const table=tableSorted();
+  const zeta=table.find(t=>t.isZeta);
+  const pos=table.indexOf(zeta)+1;
+  const cat=CATEGORIES[s.catIndex];
+  let promoted=false,playoffResult=null;
+  if(pos===1){promoted=true;}
+  else if(pos<=3){
+    const second=table[1],third=table[2];
+    const foe=(zeta===second)?third:second;
+    const ts=teamStrength(false)*0.97,os=foe.ovr;
+    const zg=poisson(clamp(ts/os*1.2,0.1,5)),og=poisson(clamp(os/ts*1.2,0.1,5));
+    playoffResult={gf:zg,gs:og,foe:foe.name};
+    if(zg>og)promoted=true;
+  }
+  const relegated=pos>=13;
+  const wasPromoted=promoted;
+  s.investors.forEach(inv=>{if(inv.promise){inv.conf=clamp(inv.conf+(promoted?12:-20),0,100);inv.promise=false;}});
+  s.sponsors.forEach(sp=>{if(!demandMet(sp))sp.happy=clamp(sp.happy-15,0,100);});
+  const leavingSponsors=s.sponsors.filter(sp=>sp.happy<30);
+  leavingSponsors.forEach(sp=>pushNews(`Sponsor ${sp.name}: accordo rescisso (felicità ${Math.round(sp.happy)}).`));
+  s.sponsors=s.sponsors.filter(sp=>sp.happy>=30);
+  if(promoted&&s.catIndex<6){
+    s.budget+=cat.promoBonus;
+    s.fans=Math.round(s.fans*(1.4+s.hype*0.003));
+    s.followers.instagram=Math.round(s.followers.instagram*1.25);
+    s.followers.tiktok=Math.round(s.followers.tiktok*1.25);
+    s.followers.youtube=Math.round(s.followers.youtube*1.2);
+    s.catIndex++;
+    pushNews(`🏆 PROMOZIONE in ${CATEGORIES[s.catIndex].name}! Bonus €${fmt(cat.promoBonus)}.`);
+  }else if(relegated){
+    if(s.catIndex===0){gameOver('Retrocessione dalla Prima Categoria: il consiglio ti ha esonerato.');save();return;}
+    s.catIndex--;s.fans=Math.round(s.fans*0.85);s.morale=clamp(s.morale-15,0,100);
+    pushNews(`Retrocessione in ${CATEGORIES[s.catIndex].name}. Morale a terra.`);
+  }else{
+    pushNews(`Stagione conclusa al ${pos}° posto in ${cat.name}. Si resta in categoria.`);
+  }
+  if(s.catIndex>=6){winGame();save();return;}
+  s.investors.forEach(inv=>{if(inv.conf>=55)inv.capital=Math.round((inv.capital||0)+100000+s.catIndex*60000);});
+  const withdraw=s.investors.filter(inv=>inv.conf<25);
+  withdraw.forEach(inv=>pushNews(`Investitore ${inv.name}: ritiro (confidenza troppo bassa).`));
+  s.investors=s.investors.filter(inv=>inv.conf>=25);
+  s.squad.forEach(p=>{p.age++;p.contract=Math.max(0,p.contract-1);});
+  const retired=s.squad.filter(p=>p.age>=35||(p.contract<=0&&Math.random()<0.4));
+  retired.forEach(p=>pushNews(`${p.name} (${p.age}) ha lasciato la rosa.`));
+  s.squad=s.squad.filter(p=>!retired.includes(p));
+  s.squad.forEach(p=>{if(p.contract<=0)p.contract=1;});
+  if(s.facilities.youth>0&&Math.random()<0.3+s.facilities.youth*0.06){
+    const yp={name:genPersonName(),pos:pick(['D','C','A']),age:rand(16,18),ovr:Math.round(CATEGORIES[s.catIndex].baseOvr-8+Math.random()*6),n:'--',real:false};
+    yp.wage=pWage(yp);yp.value=pVal(yp);yp.morale=70;yp.fatigue=0;yp.injured=0;yp.contract=3;yp.unhappy=false;yp.askLeave=false;
+    s.squad.push(yp);pushNews(`🌱 Settore giovanile: promosso ${yp.name} (${yp.age}, ${posLabel(yp.pos)}, OVR ${yp.ovr}).`);
+  }
+  s.socialPosts=0;s.marketGen=null;s.sponsorOffers=null;s.investorOffers=null;
+  s.season=nextSeasonLabel();s.week=1;s.md=1;
+  generateLeague();
+  save();
+  showSeasonModal({title:wasPromoted?'PROMOZIONE!':relegated?'RETROCESSIONE':'STAGIONE CONCLUSA',pos,playoffResult,promoted:wasPromoted,relegated,cat:cat.name,leavingSponsors,retired});
+  render();
+}
+function nextSeasonLabel(){const y=s.season.split('/');return (parseInt(y[0])+1)+'/'+(parseInt(y[1])+1);}
+function gameOver(msg){s.gameOver=true;pushNews('GAME OVER: '+msg);save();showModal(`<div class="notice bad">GAME OVER</div><h2>Esonero</h2><p>${msg}</p><div class="muted small">Stagione ${s.season} · ${CATEGORIES[s.catIndex].name}</div><button class="btn primary block" style="margin-top:14px" onclick="resetSave()">Ricomincia</button>`,true);render();}
+function winGame(){s.won=true;pushNews('🎉 PROMOSSO IN SERIE A! La Zeta Milano è in massima serie!');const b=document.getElementById('win-box');b.innerHTML=`<h1>SERIE A!</h1><p style="font-size:18px;margin:14px 0">La Zeta Milano è arrivata in Serie A. Missione compiuta, DS.</p><p class="muted">Stagione ${s.season}</p><button class="btn primary" style="margin-top:14px" onclick="document.getElementById('win-banner').classList.remove('show');resetSave()">Nuova partita</button>`;document.getElementById('win-banner').classList.add('show');}
+function showSeasonModal(d){
+  let body=`<div class="notice ${d.promoted?'good':d.relegated?'bad':'info'}">${d.title}</div>`;
+  body+=`<div class="kv"><span>Categoria</span><b>${d.cat}</b></div>`;
+  body+=`<div class="kv"><span>Posizione finale</span><b>${d.pos}° su 14</b></div>`;
+  if(d.playoffResult)body+=`<div class="kv"><span>Playoff</span><b>Zeta ${d.playoffResult.gf}-${d.playoffResult.gs} ${d.playoffResult.foe}</b></div>`;
+  if(d.promoted)body+=`<div class="notice good">Promosso in ${CATEGORIES[s.catIndex].name}! Bonus €${fmt(CATEGORIES[Math.max(0,s.catIndex-1)].promoBonus)}.</div>`;
+  if(d.leavingSponsors&&d.leavingSponsors.length)body+=`<div class="notice warn">Sponsor uscenti: ${d.leavingSponsors.map(x=>x.name).join(', ')}.</div>`;
+  if(d.retired&&d.retired.length)body+=`<div class="muted tiny">Rosa: ${d.retired.length} partenze (${d.retired.slice(0,3).map(p=>p.name).join(', ')}${d.retired.length>3?'…':''}).</div>`;
+  body+=`<button class="btn primary block" style="margin-top:14px" onclick="closeModal();render()">Inizia la nuova stagione ›</button>`;
+  showModal(`<h2>Stagione conclusa</h2>${body}`,true);
+}
+
+
+/* ============================== UI EXTRA: START / PROFILI / GUIDA / MENU / SHARE / REAL ============================== */
+function showStart(){renderStartContent();document.getElementById('start').classList.remove('hide');}
+function hideStart(){document.getElementById('start').classList.add('hide');}
+let authMode='signup';
+function renderStartContent(){
+  const box=document.getElementById('start-btns');
+  // --- Modalità CLOUD ---
+  if(cloudReady()){
+    if(cloudUser){
+      box.innerHTML=`<div class="real-note" style="text-align:left"><b>Accesso effettuato</b><br>${esc(cloudUser.email||'')}</div>`
+        +`<button class="btn primary block" style="font-size:16px;padding:12px" onclick="continueActive()">▶ Continua</button>`
+        +`<button class="btn block" onclick="doCloudLogout()">👥 Esci / cambia account</button>`
+        +`<button class="btn block" onclick="showGuide()">📖 Come si gioca</button>`;
+      return;
+    }
+    const isUp=authMode==='signup';
+    let html=`<div class="real-note" style="text-align:left;margin-bottom:12px"><b>${isUp?'Registrati':'Accedi'}</b> · account online Supabase. La partita è salvata sul cloud (cross-device).</div>`;
+    if(isUp) html+=`<input id="au-name" placeholder="Nome DS (es. Mario Rossi)" maxlength="40" style="font-size:15px;padding:11px">`;
+    html+=`<input id="au-email" type="email" placeholder="Email" maxlength="80" style="font-size:15px;padding:11px">`;
+    html+=`<input id="au-pass" type="password" placeholder="Password (min 6 caratteri)" maxlength="80" style="font-size:15px;padding:11px">`;
+    html+=`<button class="btn primary block" style="font-size:16px;padding:12px" onclick="doAuth()">${isUp?'▶ Registrati e gioca':'▶ Accedi e gioca'}</button>`;
+    html+=`<button class="btn block" onclick="authMode='${isUp?'signin':'signup'}';renderStartContent()">${isUp?'🔑 Ho già un account — Accedi':'✨ Non ho un account — Registrati'}</button>`;
+    html+=`<button class="btn block" onclick="showGuide()">📖 Come si gioca</button>`;
+    box.innerHTML=html;
+    return;
+  }
+  // --- Modalità LOCALE ---
+  const active=activeProfile();
+  const profiles=getProfiles();
+  let html='';
+  if(active){
+    html+=`<button class="btn primary block" style="font-size:16px;padding:12px" onclick="continueActive()">▶ Continua come ${esc(active.name)}</button>`;
+    html+=`<button class="btn block" onclick="if(confirm('Iniziare una nuova partita per questo profilo? I progressi verranno persi.')){resetSave();hideStart();}">↻ Nuova partita</button>`;
+    html+=`<button class="btn block" onclick="showProfileList()">👥 Cambia profilo</button>`;
+    html+=`<button class="btn block" onclick="showGuide()">📖 Come si gioca</button>`;
+  } else {
+    html+=`<div class="real-note" style="text-align:left;margin-bottom:12px"><b>Registrati</b> · crea il tuo profilo DS. Il profilo e la partita sono salvati su <b>questo dispositivo</b> (localStorage). Per un account online cross-device serve il backend (vedi Info).</div>`;
+    html+=`<input id="reg-name" placeholder="Nome DS (es. Mario Rossi)" maxlength="40" style="font-size:15px;padding:11px">`;
+    html+=`<input id="reg-handle" placeholder="email o @username" maxlength="60" style="font-size:15px;padding:11px">`;
+    html+=`<button class="btn primary block" style="font-size:16px;padding:12px" onclick="doRegister()">▶ Registrati e gioca</button>`;
+    if(profiles.length){
+      html+=`<div class="muted small" style="margin:8px 0 4px">Oppure accedi con un profilo esistente:</div>`;
+      profiles.forEach(p=>{html+=`<button class="btn block" onclick="loginProfile('${p.id}')">🔑 ${esc(p.name)} <span class="muted tiny">— ${esc(p.handle||'')}</span></button>`;});
+    }
+    html+=`<button class="btn block" onclick="showGuide()">📖 Come si gioca</button>`;
+  }
+  box.innerHTML=html;
+}
+async function doAuth(){
+  const email=(document.getElementById('au-email')?.value||'').trim();
+  const pass=(document.getElementById('au-pass')?.value||'');
+  if(!email||!pass){alertToast('Inserisci email e password.');return;}
+  if(pass.length<6){alertToast('La password deve avere almeno 6 caratteri.');return;}
+  let res;
+  if(authMode==='signup'){
+    const name=(document.getElementById('au-name')?.value||'').trim()||email.split('@')[0];
+    res=await cloudSignUp(email,pass,name);
+  } else {
+    res=await cloudSignIn(email,pass);
+  }
+  if(res.error){ alertToast('Errore: '+(res.error.message||res.error)); return; }
+  cloudUser=res.user;
+  const loaded=await cloudLoad();
+  if(!loaded){ newGame(); }
+  render(); hideStart();
+}
+async function doCloudLogout(){ await cloudSignOut(); showStart(); }
+function showProfileList(){
+  const box=document.getElementById('start-btns');
+  const profiles=getProfiles();
+  let html=`<div class="muted small" style="margin-bottom:8px">Seleziona un profilo:</div>`;
+  profiles.forEach(p=>{html+=`<button class="btn block" onclick="loginProfile('${p.id}')">🔑 ${esc(p.name)} <span class="muted tiny">— ${esc(p.handle||'')}</span></button>`;});
+  html+=`<button class="btn block" style="margin-top:6px" onclick="if(confirm('Eliminare tutti i profili e i salvataggi locali?')){wipeAllProfiles();renderStartContent();}">🗑️ Elimina tutti i profili</button>`;
+  html+=`<button class="btn block" onclick="renderStartContent()">← Indietro</button>`;
+  box.innerHTML=html;
+}
+function wipeAllProfiles(){getProfiles().forEach(p=>{try{localStorage.removeItem(saveKeyFor(p.id));}catch(e){}});setProfiles([]);setActiveId(null);}
+function continueActive(){ if(cloudReady()&&cloudUser){ if(!load()){ /* cloud already loaded */ } render(); hideStart(); return; } if(!load()){newGame();}render();hideStart(); }
+function doRegister(){
+  const name=(document.getElementById('reg-name')&&document.getElementById('reg-name').value||'').trim();
+  const handle=(document.getElementById('reg-handle')&&document.getElementById('reg-handle').value||'').trim();
+  if(!name){alertToast('Inserisci un nome DS.');return;}
+  createProfile(name,handle||name.toLowerCase().replace(/[^a-z0-9]/gi,'').slice(0,20));
+  newGame();render();hideStart();
+}
+function loginProfile(id){setActiveId(id);if(!load()){newGame();}render();hideStart();}
+function logout(){ if(cloudReady()){ doCloudLogout(); return; } setActiveId(null); showStart(); }
+
+/* ---- Mondo Reale: dati live dal web ---- */
+let realCache=null;
+async function fetchReal(){
+  try{
+    const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(REAL_LINKS.wikiPage),{headers:{'Accept':'application/json'}});
+    if(!r.ok)throw 0;
+    const j=await r.json();
+    realCache={data:j,ts:Date.now()};
+    try{localStorage.setItem(REAL_CACHE_KEY,JSON.stringify(realCache));}catch(e){}
+    return j;
+  }catch(e){
+    try{realCache=JSON.parse(localStorage.getItem(REAL_CACHE_KEY)||'null');}catch(e){}
+    return realCache?realCache.data:null;
+  }
+}
+function renderRealWorld(){
+  const app=document.getElementById('app');
+  const sub=cloudReady()
+    ? "Dati reali aggiornati in automatico da Supabase (cron orario). Classifica e risultati live del girone sui link sotto."
+    : "Sintesi reale del club aggiornata dal web (Wikipedia). Classifica e risultati reali del girone sui link sotto.";
+  app.innerHTML=`<div class="card">
+    <h2>🌍 Mondo Reale — FC Zeta Milano</h2>
+    <div class="sub">${sub}</div>
+    <div id="real-box" class="muted" style="min-height:60px">Caricamento…</div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn sm" onclick="loadReal(true)">🔄 Aggiorna</button>
+      <a class="btn sm" href="${REAL_LINKS.tuttocampo}" target="_blank" rel="noopener">📈 Classifica & risultati reali ↗</a>
+      <a class="btn sm" href="${REAL_LINKS.zetaworld}" target="_blank" rel="noopener">🌐 Sito ufficiale ↗</a>
+      <a class="btn sm" href="${REAL_LINKS.wikipedia}" target="_blank" rel="noopener">📖 Wikipedia ↗</a>
+    </div>
+    <div class="notice info" style="margin-top:12px">ℹ️ I risultati e la classifica <i>dentro</i> il gioco arrivano dal job Supabase (sintesi Wikipedia affidabile; i punteggi live del girone dipendono dalla fonte tuttocampo, che attualmente blocca i bot: se vuoti, vedi i link sopra). ${cloudReady()?'':'Per attivarli: configura Supabase + Edge Function (vedi Info & Fonti).'} </div>
+  </div>`;
+  loadReal(false);
+}
+async function loadReal(force){
+  const box=document.getElementById('real-box');if(!box)return;
+  box.innerHTML='Caricamento…';
+  if(cloudReady()){
+    const cr=await cloudRealLoad();
+    if(cr){ renderRealCloud(cr,force); return; }
+  }
+  // fallback client-side Wikipedia
+  if(!force&&realCache&&Date.now()-realCache.ts<30*60*1000){renderRealBox(realCache.data);return;}
+  const data=await fetchReal();
+  renderRealBox(data);
+}
+function renderRealCloud(cr,force){
+  const box=document.getElementById('real-box');if(!box)return;
+  const info=cr.info||{};
+  const img=info.thumbnail?`<img src="${esc(info.thumbnail)}" alt="" style="float:right;width:120px;border-radius:10px;margin:0 0 8px 12px">`:'';
+  let html=`${img}<div style="font-size:14px;line-height:1.55">${esc(info.extract||'Nessuna sintesi disponibile.')}</div>`;
+  if(info.fetched_at) html+=`<div class="muted tiny" style="margin-top:8px;clear:both">Fonte: Wikipedia EN (job Supabase) · ultimo aggiornamento ${new Date(info.fetched_at).toLocaleString('it-IT')}</div>`;
+  if(cr.results&&cr.results.length){
+    html+=`<h3 style="margin-top:14px">📅 Ultimi risultati reali</h3><div class="scroll">`;
+    cr.results.forEach(r=>{ html+=`<div class="kv"><span>${esc(r.date||'')}</span><b>${esc(r.home||'')} ${esc(r.score||'')} ${esc(r.away||'')}</b></div>`; });
+    html+=`</div>`;
+  }
+  if(cr.standings&&cr.standings.length){
+    html+=`<h3 style="margin-top:14px">📈 Classifica reale (girone)</h3><table class="tbl"><thead><tr><th>#</th><th>Squadra</th><th>Pt</th><th>G</th></tr></thead><tbody>`;
+    cr.standings.forEach(t=>{ const z=(t.team||'').toLowerCase().includes('zeta')?'★':''; html+=`<tr><td>${t.pos}</td><td>${z}${esc(t.team)}</td><td>${t.pts}</td><td>${t.played}</td></tr>`; });
+    html+=`</tbody></table>`;
+  }
+  box.innerHTML=html;
+}
+function renderRealBox(j){
+  const box=document.getElementById('real-box');if(!box)return;
+  if(!j){box.innerHTML='<div class="notice warn">Impossibile caricare i dati reali (offline o bloccati dal browser). Usa i link sotto per classifica e risultati.</div>';return;}
+  const img=j.thumbnail?`<img src="${esc(j.thumbnail.source)}" alt="" style="float:right;width:120px;border-radius:10px;margin:0 0 8px 12px">`:'';
+  box.innerHTML=`${img}<div style="font-size:14px;line-height:1.55">${esc(j.extract||'Nessuna sintesi disponibile.')||''}</div>
+    <div class="muted tiny" style="margin-top:8px;clear:both">Fonte: Wikipedia EN · ultima lettura ${new Date().toLocaleString('it-IT')}</div>`;
+}
+
+function showGuide(){
+  showModal(`<h2>📖 Come si gioca</h2>
+  <div class="sub">Sei il DS della Zeta Milano. Obiettivo: 6 promozioni fino alla Serie A.</div>
+  <div class="kv"><span>▶ Ciclo</span><b>Premi "Avanza settimana & gioca" (tab Calendario o Panoramica)</b></div>
+  <div class="kv"><span>📅 Ogni settimana</span><b>Allenamento applicato → possibili eventi → partita simulata</b></div>
+  <div class="kv"><span>👥 Rosa</span><b>Scegli modulo e approccio; i titolari sono i migliori per ruolo. Riposa i stanchi col ›</b></div>
+  <div class="kv"><span>🏃 Allenamento</span><b>Focus + intensità: più intensità = più crescita ma più fatica e infortuni</b></div>
+  <div class="kv"><span>🏟️ Strutture</span><b>Centro, stadio, giovanili, medico, social studio, merch: ogni livello sblocca bonus</b></div>
+  <div class="kv"><span>🔄 Mercato</span><b>Compra e cedi giocatori (min 14 in rosa). Il DS migliora le offerte</b></div>
+  <div class="kv"><span>📱 Social</span><b>Max 2 contenuti/settimana: muovono follower, hype, morale, sponsor</b></div>
+  <div class="kv"><span>📰 Eventi</span><b>Malelingue, litigi giocatore-enatore, offerte, infortuni: scegli come reagire</b></div>
+  <div class="kv"><span>💼 Sponsor / 💰 Investitori</span><b>Tieni alta la felicità e la confidenza per entrare e capitali</b></div>
+  <div class="kv"><span>🏆 Fine stagione</span><b>1° = promozione · 2°-3° = spareggio · 13°-14° = retrocessione</b></div>
+  <div class="notice warn" style="margin-top:10px">⚠️ Se retrocedi dalla Prima Categoria o vai in bancarotta: GAME OVER (esonero).</div>
+  <button class="btn primary block" style="margin-top:12px" onclick="closeModal()">Ho capito, gioca</button>`,true);
+}
+function showInfo(){
+  showModal(`<h2>ℹ️ Info & Fonti</h2>
+  <div class="sub">Gioco non ufficiale, realizzato dai fan sulla storia del FC Zeta Milano.</div>
+  <p><b>Reale</b> (da Wikipedia EN, zetaworld.it, tuttocampo.it): fondazione 22/05/2024; presidente Antonio Pellegrino "ZWJackson"; GM Cristian Brocchi; presidente onorario Gianmarco Tocco "Blur"; percorso Terza Categoria 2024/25 → Seconda 2025/26 → Prima Categoria Girone B 2026/27; allenatori Chiaramonte → Hübner → Brocchi → Mascetti; rosa e staff 2026/27; partner Como 1907; impianto Cilissone (Lissone).</p>
+  <p><b>Finzione di gioco</b>: budget, follower social, rating/età/valori giocatori, nomi avversari, sponsor di gioco (oltre Como 1907), investitori addizionali.</p>
+  <p>Salvataggio automatico nel browser (localStorage), <b>un profilo per dispositivo</b>. Pubblicando il file HTML su un host statico (Netlify/GitHub Pages/Vercel) il gioco è online e la scheda <b>🌍 Mondo Reale</b> si auto-aggiorna dal web. Account cross-device e risultati live in-app richiedono un backend (vedi sotto).</p>
+  <div class="notice info"><b>Modalità online completa (opzionale)</b>: per <i>registrazione server-side, salvataggio cross-device e risultati/classifica reali dentro il gioco</i> serve un piccolo backend (es. Supabase: Auth + Postgres + una <i>edge function</i> programmata che legge tuttocampo.it e scrive i risultati su DB). Il frontend è già strutturato a profili: basta collegare gli stessi form a /api/register, /api/login, /api/save, /api/load, /api/realresults.</div>
+  <p>Fonti: <a href="https://en.wikipedia.org/wiki/FC_Zeta_Milano" target="_blank">Wikipedia</a> · <a href="https://zetaworld.it" target="_blank">zetaworld.it</a> · <a href="https://www.tuttocampo.it" target="_blank">tuttocampo.it</a></p>
+  <button class="btn primary block" style="margin-top:10px" onclick="closeModal()">Chiudi</button>`,true);
+}
+function toggleMenu(e){if(e)e.stopPropagation();document.getElementById('menu-pop').classList.toggle('show');}
+function closeMenu(){document.getElementById('menu-pop').classList.remove('show');}
+document.addEventListener('click',e=>{const mp=document.getElementById('menu-pop');if(mp&&!mp.contains(e.target)&&!e.target.classList.contains('menu-btn'))mp.classList.remove('show');});
+
+function shareGame(){
+  const url=location.href, txt='Zeta Milano — Calcio Manageriale: dalla Prima Categoria alla Serie A!';
+  if(navigator.share){navigator.share({title:'Zeta Milano — Calcio Manageriale',text:txt,url:url}).catch(()=>{});}
+  else{navigator.clipboard.writeText(url+' '+txt).then(()=>alertToast('Link copiato! Condividi dove vuoi.'),()=>alertToast('Copia manualmente: '+url));}
+}
+function confirmNewGame(){if(!state||confirm('Iniziare una nuova partita? Quella in corso verrà persa.')){resetSave();}}
+
+/* Probabilità di esito partita (stima da forza) */
+function matchProb(fx){
+  if(!fx)return null;
+  const opp=teamByName(fx.opp);if(!opp)return null;
+  const ts=teamStrength(fx.home),os=oppStrength(opp.ovr,fx.home);
+  // modello logit semplificato su rapporto forze
+  const r=ts/os;
+  const pW=clamp(1/(1+Math.exp(-(r-1)*3)),0.05,0.9);
+  const pL=clamp(1/(1+Math.exp((r-1)*3)),0.05,0.9);
+  const pD=clamp(1-pW-pL,0.1,0.35);
+  const tot=pW+pD+pL;
+  return {w:pW/tot*100,d:pD/tot*100,l:pL/tot*100};
+}
+function probBar(prob){
+  if(!prob)return '';
+  return `<div class="prob"><span class="tiny muted">Vittoria</span><div class="pb"><span class="w" style="width:${prob.w}%"></span><span class="d" style="width:${prob.d}%"></span><span class="l" style="width:${prob.l}%"></span></div><span class="tiny muted">${Math.round(prob.w)}%</span></div>`;
+}
+
+/* ============================== BOOT ============================== */
+async function init(){
+  initSupabase();
+  // --- Modalità CLOUD (Supabase configurato) ---
+  if(cloudReady()){
+    try{
+      const {data}=await sb.auth.getSession();
+      if(data && data.session){
+        cloudUser=data.session.user;
+        const loaded=await cloudLoad();
+        if(!loaded){newGame();}
+        render();
+        return;
+      }
+    }catch(e){ console.warn("sessione cloud non recuperata:", e); }
+    // nessuna sessione: mostra schermata di login/registrazione
+    state=null;s=null;
+    showStart();
+    return;
+  }
+  // --- Modalità LOCALE (nessun Supabase) ---
+  if(getProfiles().length===0){
+    const legacy=localStorage.getItem(LEGACY_KEY);
+    if(legacy){
+      const id=createProfile('Allenatore','allenatore');
+      try{localStorage.setItem(saveKeyFor(id),legacy);}catch(e){}
+    }
+  }
+  const active=activeProfile();
+  if(active){
+    if(!load()){newGame();}
+    render();
+  } else {
+    state=null;s=null;
+    showStart();
+  }
+}
+window.addEventListener('DOMContentLoaded',init);
+
+
+
+
+</script>
+</body>
+</html>
