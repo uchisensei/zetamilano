@@ -42,7 +42,8 @@ h1,h2,h3,h4{margin:0 0 .4em;font-weight:700}
 header.top{position:sticky;top:0;z-index:50;background:linear-gradient(90deg,rgba(124,92,255,.18),rgba(34,211,238,.10));border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
 .top-in{max-width:1280px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
-.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#0b0e14;flex:0 0 auto;box-shadow:0 0 18px rgba(124,92,255,.45)}
+.logo{position:relative;overflow:hidden;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#0b0e14;flex:0 0 auto;box-shadow:0 0 18px rgba(124,92,255,.45)}
+.logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:inherit}
 .brand .club{font-weight:800;font-size:16px;line-height:1.1}
 .brand .club small{display:block;font-weight:500;color:var(--muted);font-size:11px}
 .chips{display:flex;gap:8px;flex-wrap:wrap;flex:1;justify-content:flex-end}
@@ -184,7 +185,7 @@ select,input{background:var(--panel2);border:1px solid var(--line);color:var(--t
 <header class="top">
   <div class="top-in">
     <div class="brand">
-      <div class="logo">Z</div>
+      <div class="logo">Z<img id="hdr-logo" alt="FC Zeta Milano" onerror="this.remove()"></div>
       <div class="club">ZETA MILANO<small id="hdr-sub">Calcio Manageriale</small></div>
     </div>
     <div class="chips" id="chips"></div>
@@ -262,7 +263,7 @@ function _hue(s){let h=0;s=String(s);for(let i=0;i<s.length;i++)h=(h*31+s.charCo
 function _avSvgData(name,size){const ini=_ini(name);const c=AV_COLORS[_hue(name)%AV_COLORS.length];const fs=Math.round(size*0.42);const svg="<svg xmlns='http://www.w3.org/2000/svg' width='"+size+"' height='"+size+"'><rect width='"+size+"' height='"+size+"' rx='"+(size/2)+"' fill='"+c+"'/><text x='50%' y='52%' dominant-baseline='central' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='"+fs+"' fill='#0b0e14'>"+ini+"</text></svg>";return "data:image/svg+xml,"+encodeURIComponent(svg);}
 function avatar(name,size){size=size||26;const url=PHOTOS[name];const fb=_avSvgData(name,size);if(url){const i=_avCache.length;_avCache.push(fb);return "<img class='avatar' src=\""+esc(url)+"\" alt=\""+esc(name)+"\" style='width:"+size+"px;height:"+size+"px' onerror=\"this.onerror=null;this.src=window._avCache["+i+"]\">";}return "<img class='avatar' src=\""+fb+"\" alt='' style='width:"+size+"px;height:"+size+"px'>";}
 window._avCache=_avCache;
-(function(){var el=document.getElementById('biglogo-img');if(el)el.src=LOGO_URL;})();
+(function(){var el=document.getElementById('biglogo-img');if(el)el.src=LOGO_URL;var hl=document.getElementById('hdr-logo');if(hl)hl.src=LOGO_URL;})();
 let sb=null, cloudUser=null;
 function cloudReady(){return !!(sb && (SUPA.url||"").indexOf(SUPA_PLACEHOLDER)===-1);}
 function initSupabase(){
@@ -1350,6 +1351,7 @@ function renderStartContent(){
     html+=`<input id="au-email" type="email" placeholder="Email" maxlength="80" style="font-size:15px;padding:11px">`;
     html+=`<input id="au-pass" type="password" placeholder="Password (min 6 caratteri)" maxlength="80" style="font-size:15px;padding:11px">`;
     html+=`<button class="btn primary block" style="font-size:16px;padding:12px" onclick="doAuth()">${isUp?'▶ Registrati e gioca':'▶ Accedi e gioca'}</button>`;
+    html+=`<button class="btn block" style="margin-top:8px" onclick="playAsGuest()">🎮 Gioca come ospite <span class="muted tiny">(senza account)</span></button>`;
     html+=`<button class="btn block" onclick="authMode='${isUp?'signin':'signup'}';renderStartContent()">${isUp?'🔑 Ho già un account — Accedi':'✨ Non ho un account — Registrati'}</button>`;
     html+=`<button class="btn block" onclick="showGuide()">📖 Come si gioca</button>`;
     box.innerHTML=html;
@@ -1369,9 +1371,11 @@ function renderStartContent(){
     html+=`<input id="reg-name" placeholder="Nome DS (es. Mario Rossi)" maxlength="40" style="font-size:15px;padding:11px">`;
     html+=`<input id="reg-handle" placeholder="email o @username" maxlength="60" style="font-size:15px;padding:11px">`;
     html+=`<button class="btn primary block" style="font-size:16px;padding:12px" onclick="doRegister()">▶ Registrati e gioca</button>`;
-    if(profiles.length){
+    html+=`<button class="btn block" style="margin-top:8px" onclick="playAsGuest()">🎮 Gioca come ospite <span class="muted tiny">(senza registrazione)</span></button>`;
+    const namedProfiles=profiles.filter(p=>!p.guest);
+    if(namedProfiles.length){
       html+=`<div class="muted small" style="margin:8px 0 4px">Oppure accedi con un profilo esistente:</div>`;
-      profiles.forEach(p=>{html+=`<button class="btn block" onclick="loginProfile('${p.id}')">🔑 ${esc(p.name)} <span class="muted tiny">— ${esc(p.handle||'')}</span></button>`;});
+      namedProfiles.forEach(p=>{html+=`<button class="btn block" onclick="loginProfile('${p.id}')">🔑 ${esc(p.name)} <span class="muted tiny">— ${esc(p.handle||'')}</span></button>`;});
     }
     html+=`<button class="btn block" onclick="showGuide()">📖 Come si gioca</button>`;
   }
@@ -1413,6 +1417,19 @@ function doRegister(){
   if(!name){alertToast('Inserisci un nome DS.');return;}
   createProfile(name,handle||name.toLowerCase().replace(/[^a-z0-9]/gi,'').slice(0,20));
   newGame();render();hideStart();
+}
+function playAsGuest(){
+  // Avvia subito una partita come OSPITE: profilo locale temporaneo, senza registrazione.
+  // Riutilizza un eventuale profilo ospite già esistente (continua il salvataggio).
+  const profiles=getProfiles();
+  let g=profiles.find(p=>p.guest===true);
+  if(g){ setActiveId(g.id); }
+  else {
+    createProfile('Allenatore Ospite','ospite');
+    const ps=getProfiles(); const me=ps[ps.length-1]; if(me){ me.guest=true; setProfiles(ps); }
+  }
+  if(!load()){ newGame(); }
+  render(); hideStart();
 }
 function loginProfile(id){setActiveId(id);if(!load()){newGame();}render();hideStart();}
 function logout(){ if(cloudReady()){ doCloudLogout(); return; } setActiveId(null); showStart(); }
