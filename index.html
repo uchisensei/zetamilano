@@ -333,10 +333,8 @@ const STARTING_ROSTER = [
   {n:"22", name:"Francesco Ambrosio",   pos:"P", age:21, ovr:50, real:true},
   // Difensori
   {n:"3",  name:"Andrés Llamas Acuña",  pos:"D", age:25, ovr:55, real:true},
-  {n:"11", name:"Fabio Eguelfi",        pos:"D", age:27, ovr:56, real:true},
   {n:"14", name:"Andrea Tarasco",       pos:"D", age:29, ovr:62, real:true, captain:true},
   {n:"27", name:"Niccolò Ciceri",       pos:"D", age:20, ovr:49, real:true},
-  {n:"29", name:"Stefano Lanini",       pos:"D", age:26, ovr:54, real:true},
   {n:"33", name:"Alessio Marcone",      pos:"D", age:23, ovr:53, real:true},
   {n:"74", name:"Duccio Guasti",        pos:"D", age:19, ovr:46, real:true},
   {n:"82", name:"Lorenzo Mantovani",    pos:"D", age:28, ovr:55, real:true},
@@ -356,7 +354,6 @@ const STARTING_ROSTER = [
   {n:"23", name:"Matteo Capitani",      pos:"A", age:20, ovr:52, real:true},
   {n:"45", name:"Fallou Cisse",         pos:"A", age:25, ovr:57, real:true},
   {n:"77", name:"David Speziale",       pos:"A", age:23, ovr:54, real:true},
-  {n:"--", name:"Simone Domenico Carollo",pos:"A", age:18, ovr:45, real:true},
 ];
 
 // Staff reale + ruoli societari. Rating = finzione di gioco.
@@ -614,6 +611,7 @@ function newGame(){
   s=state; tab="panoramica";
   state.squad.forEach(p=>{p.wage=pWage(p);p.value=pVal(p);});
   pushNews("Benvenuto alla Zeta Milano! Stagione 2026/27 — Prima Categoria, Girone B (Lombardia). Obiettivo: portare il club in Serie A. Sei tu il DS.");
+  s.news.unshift({t:"Comunicato societario · 2026/27", m:"Il FC Zeta Milano comunica che <b>Fabio Eguelfi</b>, <b>Stefano Lanini</b> e <b>Simone Domenico Carollo</b> hanno lasciato la rosa e non fanno più parte della squadra per la nuova stagione. La società ringrazia i tre calciatori per il contributo dato e augura loro il meglio per il prosieguo di carriera. La rosa viene rinnovata di conseguenza."});
   generateLeague();
   save();
 }
