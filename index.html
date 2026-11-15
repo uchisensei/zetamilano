@@ -657,7 +657,7 @@ function availablePlayers(){return s.squad.filter(p=>!p.injured && !p.rested);}
 function bestXI(formation){
   const f=parseFormation(formation||s.formation);
   const avail=availablePlayers();
-  const byPos=pos=>avail.filter(p=>p.pos===pos).sort((a,b)=>effOvr(b)-effOvr(a));
+  const byPos=pos=>avail.filter(p=>p.pos===pos).sort((a,b)=>((b.suggStarter?1:0)-(a.suggStarter?1:0))||effOvr(b)-effOvr(a));
   const pickN=(arr,n)=>arr.slice(0,n);
   const gk=pickN(byPos('P'),1);
   const def=pickN(byPos('D'),f.d);
@@ -812,7 +812,7 @@ function renderRosa(){
       <td class="num ${fatCol}">${Math.round(p.fatigue)}</td>
       <td class="num tiny muted">€${fmt(p.value)}</td>
       <td class="num tiny muted">€${fmt(p.wage)}</td>
-      <td class="num">${start?'<span style="color:var(--good)">Titolare</span>':p.rested?'<span class="tag">Riposo</span>':'Panchina'}</td>
+      <td class="num">${start?'<span style="color:var(--good)">Titolare'+(p.suggStarter?' ★':'')+'</span>':p.rested?'<span class="tag">Riposo</span>':p.suggStarter?'<span class="tag" style="border-color:var(--gold);color:var(--gold)">Sugg. titolare</span>':'Panchina'}</td>
       <td class="num"><button class="btn sm" onclick="playerDetail('${p.name.replace(/'/g,"\\'")}')">›</button></td>
     </tr>`;
   }).join('');
@@ -825,7 +825,7 @@ function renderRosa(){
         ${FORMATIONS.map(f=>`<option ${f===s.formation?'selected':''}>${f}</option>`).join('')}</select></div>
       <div><span class="tiny muted">Approccio</span><br><select onchange="s.approach=this.value;save();render()">
         ${APPROACHES.map(a=>`<option value="${a.id}" ${a.id===s.approach?'selected':''}>${a.label}</option>`).join('')}</select></div>
-      <div style="margin-left:auto;align-self:flex-end"><span class="tiny muted">Titolari auto-selezionati dai migliori per ruolo.</span></div>
+      <div style="margin-left:auto;align-self:flex-end"><span class="tiny muted">Titolari auto-selezionati dai migliori per ruolo; i suggerimenti del DS (★) hanno priorità.</span></div>
     </div>
     <div class="scroll"><table>
       <thead><tr><th>#</th><th>Pos</th><th>Giocatore</th><th class="num">Età</th><th class="num">OVR</th><th class="num">Infort.</th><th class="num">Mor.</th><th class="num">Fatic.</th><th class="num">Valore</th><th class="num">Ingagg.</th><th class="num">Stato</th><th></th></tr></thead>
@@ -847,7 +847,9 @@ function playerDetail(name){
     ${p.injured?`<div class="notice bad">Infortunato: ${p.injured} settimane al rientro.</div>`:''}
     ${p.unhappy?`<div class="notice warn">Scontento: il morale è basso e potrebbe chiedere la cessione.</div>`:''}
     ${p.askLeave?`<div class="notice bad">Ha chiesto di essere ceduto.</div>`:''}
+    ${p.suggStarter?`<div class="notice info">★ Suggerito al mister come titolare: ha priorità nella selezione dell'XI.</div>`:''}
     <div class="row" style="margin-top:12px">
+      <button class="btn sm ${p.suggStarter?'':'primary'}" ${(p.injured||p.rested)?'disabled style="opacity:.5;cursor:not-allowed"':''} onclick="suggestStarter('${name.replace(/'/g,"\\'")}')">${p.suggStarter?'★ Rimuovi suggerimento':'★ Suggerisci come titolare'}</button>
       <button class="btn sm" onclick="toggleRest('${name.replace(/'/g,"\\'")}')">${p.rested?'Rimuomi riposo':'Metti in riposo'}</button>
       <button class="btn sm good" onclick="finePlayer('${name.replace(/'/g,"\\'")}')">Elogia (+morale, -€500)</button>
       <button class="btn sm warn" onclick="finePlayer2('${name.replace(/'/g,"\\'")}')">Multa (-morale, +€1.000)</button>
@@ -860,6 +862,21 @@ function toggleRest(name){const p=s.squad.find(x=>x.name===name);if(!p)return;p.
 function finePlayer(name){const p=s.squad.find(x=>x.name===name);if(!p)return;if(s.budget<500)return alertToast('Cassa insufficiente.');s.budget-=500;p.morale=clamp(p.morale+8,0,100);pushNews(`${p.name} elogiato pubblicamente (+8 morale).`);save();closeModal();render();}
 function finePlayer2(name){const p=s.squad.find(x=>x.name===name);if(!p)return;s.budget+=1000;p.morale=clamp(p.morale-7,0,100);pushNews(`${p.name} multato (+€1.000, -7 morale).`);save();closeModal();render();}
 function offerSale(name){const p=s.squad.find(x=>x.name===name);if(!p)return;p.askLeave=true;pushNews(`${p.name} messo sul mercato. Cerca offerte nel tab Mercato.`);save();closeModal();setTab('mercato');}
+function suggestStarter(name){
+  const p=s.squad.find(x=>x.name===name);if(!p)return;
+  if(p.injured){alertToast(p.name+' è infortunato: non può essere suggerito come titolare.');return;}
+  if(p.rested){alertToast(p.name+' è in riposo: rimuovi prima il riposo, poi suggeriscilo.');return;}
+  p.suggStarter=!p.suggStarter;
+  if(p.suggStarter){
+    // Il mister valuta il suggerimento in base alla propria autorità.
+    s.coachAuth=clamp((s.coachAuth||70)+1,0,100);
+    const honors=(s.coachAuth||70)>=55;
+    pushNews(`Suggerimento del DS al mister: <b>${p.name}</b> titolare. ${honors?`Il mister accoglie la richiesta — ${p.name} partirà titolare.`:'Il mister prende nota con riserva (autorità allenatore bassa): deciderà in base agli allenamenti.'} Autorità allenatore +1.`);
+  } else {
+    pushNews(`Suggerimento revocato: ${p.name} non più segnalato come titolare al mister.`);
+  }
+  save();closeModal();render();
+}
 
 /* ============================== TAB: STAFF ============================== */
 function renderStaff(){
@@ -1509,7 +1526,7 @@ function showGuide(){
   <div class="sub">Sei il DS della Zeta Milano. Obiettivo: 6 promozioni fino alla Serie A.</div>
   <div class="kv"><span>▶ Ciclo</span><b>Premi "Avanza settimana & gioca" (tab Calendario o Panoramica)</b></div>
   <div class="kv"><span>📅 Ogni settimana</span><b>Allenamento applicato → possibili eventi → partita simulata</b></div>
-  <div class="kv"><span>👥 Rosa</span><b>Scegli modulo e approccio; i titolari sono i migliori per ruolo. Riposa i stanchi col ›</b></div>
+  <div class="kv"><span>👥 Rosa</span><b>Scegli modulo e approccio; i titolari sono i migliori per ruolo. Col › suggerisci un titolare al mister (★) o riposa gli stanchi</b></div>
   <div class="kv"><span>🏃 Allenamento</span><b>Focus + intensità: più intensità = più crescita ma più fatica e infortuni</b></div>
   <div class="kv"><span>🏟️ Strutture</span><b>Centro, stadio, giovanili, medico, social studio, merch: ogni livello sblocca bonus</b></div>
   <div class="kv"><span>🔄 Mercato</span><b>Compra e cedi giocatori (min 14 in rosa). Il DS migliora le offerte</b></div>
