@@ -453,7 +453,7 @@ const OPP_PARTS = {
 const EVENT_POOL = [
   // --- Malelingue sui social ---
   {id:"rumor_captain", title:"Malelingue sul capitano",
-   text:"Un account anonimo su X: 'Tarasco e Mascetti si sono presi a parole negli spogliatoi. Lo spogliatoio è spaccato.' La notizia fa il giro dei gruppi WhatsApp dei tifosi.",
+   text:"Un account anonimo su X: 'Tarasco e {COACH} si sono presi a parole negli spogliatoi. Lo spogliatoio è spaccato.' La notizia fa il giro dei gruppi WhatsApp dei tifosi.",
    weight:10, choices:[
      {label:"Smentita ufficiale del club", sub:"Ripristina l'immagine, ma l'hype cala.", fn:()=>{s.morale=clamp(s.morale+3,0,100); s.hype=clamp(s.hype-5,0,100); return "Comunicato stampa: 'Voci infondate, spogliatoio compatto.' Morale +3, hype -5."}},
      {label:"Ignorare: il silenzio è stile", sub:"Nessun danno immediato, ma la voce resta.", fn:()=>{s.morale=clamp(s.morale-2,0,100); return "Nessuna risposta. La voce continua a girare. Morale -2."}},
@@ -461,10 +461,10 @@ const EVENT_POOL = [
    ]},
   // --- Litigio giocatore vs allenatore ---
   {id:"coach_fight", title:"Giocatore contro l'allenatore", needsPlayer:true,
-   text:"{P} è furioso in panchina: 'Non sono qui per scaldare la panchina, coach!' Mascetti chiede mano ferma. Tocca a te decidere.",
+   text:"{P} è furioso in panchina: 'Non sono qui per scaldare la panchina, coach!' {COACH} chiede mano ferma. Tocca a te decidere.",
    weight:12, choices:[
-     {label:"Appoggi pubblicamente Mascetti", sub:"Autorità allenatore ↑, giocatore nervoso.", fn:(p)=>{p.morale=clamp(p.morale-18,0,100); p.unhappy=true; s.coachAuth=clamp((s.coachAuth||70)+5,0,100); s.morale=clamp(s.morale-2,0,100); return `Hai dato ragione a Mascetti. ${p.name} è gelido (-18 morale, ora scontento). Autorità allenatore +5."`}},
-     {label:"Dagli minuti la prossima gara", sub:"Accontenta il giocatore, autorità allenatore ↓.", fn:(p)=>{p.morale=clamp(p.morale+12,0,100); p.unhappy=false; s.coachAuth=clamp((s.coachAuth||70)-6,0,100); return `${p.name} sorride (+12 morale). Mascetti digrigna i denti: autorità allenatore -6."`}},
+     {label:"Appoggi pubblicamente {COACH}", sub:"Autorità allenatore ↑, giocatore nervoso.", fn:(p)=>{p.morale=clamp(p.morale-18,0,100); p.unhappy=true; s.coachAuth=clamp((s.coachAuth||70)+5,0,100); s.morale=clamp(s.morale-2,0,100); return `Hai dato ragione a {COACH}. ${p.name} è gelido (-18 morale, ora scontento). Autorità allenatore +5."`}},
+     {label:"Dagli minuti la prossima gara", sub:"Accontenta il giocatore, autorità allenatore ↓.", fn:(p)=>{p.morale=clamp(p.morale+12,0,100); p.unhappy=false; s.coachAuth=clamp((s.coachAuth||70)-6,0,100); return `${p.name} sorride (+12 morale). {COACH} digrigna i denti: autorità allenatore -6."`}},
      {label:"Multa interna + chiarimento", sub:"Disciplina, +cassa, rischio reazione.", fn:(p)=>{s.budget+=2500; p.morale=clamp(p.morale-8,0,100); s.coachAuth=clamp((s.coachAuth||70)+3,0,100); const bad=Math.random()<0.3; if(bad){p.unhappy=true; p.askLeave=true; return `Multa di €2.500. ${p.name} si sente umiliato e chiede la cessione."`} return `Multa di €2.500 incassata. ${p.name} accetta di malavoglia (-8 morale)."`}},
      {label:"Incontro a tre (tu-coach-giocatore)", sub:"Punta a risolvere davvero.", fn:(p)=>{const ok=Math.random()<0.55; if(ok){p.morale=clamp(p.morale+6,0,100); p.unhappy=false; s.morale=clamp(s.morale+2,0,100); return `Vertice chiarificatore: pace fatta. ${p.name} +6 morale."`} p.morale=clamp(p.morale-5,0,100); p.unhappy=true; return `Il vertice degenera. ${p.name} resta scontento (-5)."`}},
    ]},
@@ -529,10 +529,10 @@ const EVENT_POOL = [
      {label:"Mettlo sul mercato", sub:"Disposto a cederlo.", fn:(p)=>{p.askLeave=true; p.morale=clamp(p.morale-6,0,100); return `${p.name} è sul mercato. -6 morale."`}},
    ]},
   // --- Voce allenatore che salta ---
-  {id:"coach_rumor", title:"Voce: Mascetti vicino all'esonero",
-   text:"Un giornale locale titola: 'Mascetti a una gara dall'addio.' Lo spogliatoio è in allarme.",
+  {id:"coach_rumor", title:"Voce: {COACH} vicino all'esonero",
+   text:"Un giornale locale titola: '{COACH} a una gara dall'addio.' Lo spogliatoio è in allarme.",
    weight:6, choices:[
-     {label:"Public backing forte al coach", sub:"+autorità, +morale.", fn:()=>{s.coachAuth=clamp((s.coachAuth||70)+7,0,100); s.morale=clamp(s.morale+4,0,100); return `Pubblico sostegno a Mascetti. Autorità +7, morale +4."`}},
+     {label:"Public backing forte al coach", sub:"+autorità, +morale.", fn:()=>{s.coachAuth=clamp((s.coachAuth||70)+7,0,100); s.morale=clamp(s.morale+4,0,100); return `Pubblico sostegno a {COACH}. Autorità +7, morale +4."`}},
      {label:"Silenzio stampa", sub:"Neutro.", fn:()=>{s.morale=clamp(s.morale-2,0,100); return `Silenzio. Lo spogliatoio si agita (-2)."`}},
      {label:"Metti davvero in discussione il coach", sub:"Rischio esonero/cofidenza.", fn:()=>{s.coachAuth=clamp((s.coachAuth||70)-8,0,100); s.morale=clamp(s.morale-5,0,100); return `Hai mandato segnali freddi al coach. Autorità -8, morale -5."`}},
    ]},
@@ -560,6 +560,16 @@ function staffWageTotal(){return s.staff.reduce((t,x)=>t+x.wage,0);}
 /* ============================== STAFF / STRUTTURE ============================== */
 function staffBy(effect){return s.staff.find(x=>x.effect===effect);}
 function coachRating(){const c=staffBy('tactic');return c?c.rating:60;}
+function coachName(){const c=staffBy('tactic');return c?c.name:'il mister';}
+function userName(){
+  const ap=activeProfile();
+  if(ap&&ap.name) return ap.name;
+  if(typeof cloudUser!=='undefined'&&cloudUser){
+    try{const n=localStorage.getItem('zm_cloud_name');if(n)return n;}catch(e){}
+    if(cloudUser.email) return String(cloudUser.email).split('@')[0];
+  }
+  return 'il DS';
+}
 function athleticRating(){const c=staffBy('athletic');return c?c.rating:60;}
 function dsRating(){const c=staffBy('ds');return c?c.rating:60;}
 function tmRating(){const c=staffBy('tm');return c?c.rating:60;}
@@ -591,6 +601,16 @@ function deleteProfile(id){
   if(getActiveId()===id)setActiveId(null);
 }
 
+function applyCoachExit(){
+  // Terremoto in casa Zeta: Mascetti si dimette. La panchina passa provvisoriamente al DS (utente).
+  if(!s||!s.staff)return;
+  const idx=s.staff.findIndex(x=>x.effect==='tactic');
+  const interim={role:"Allenatore",effect:"tactic",name:userName(),rating:62,wage:0,real:false,interim:true,note:"Allenatore provvisorio — il DS alla guida della squadra"};
+  if(idx>=0)s.staff[idx]=interim; else s.staff.push(interim);
+  s.coachAuth=clamp((s.coachAuth||70)-4,0,100); // crisi di spogliatoio
+  s.morale=clamp((s.morale||72)-3,0,100);
+  s.coachExitPending=true; // mostra il banner al primo ingresso in gioco
+}
 function newGame(){
   state={
     season:"2026/27", catIndex:0, week:1, md:1,
@@ -606,17 +626,29 @@ function newGame(){
     investors: STARTING_INVESTORS.map(x=>({...x})),
     league:null, news:[], lastResult:null,
     socialPosts:0, marketGen:null, sponsorOffers:null, investorOffers:null, youthProspect:null,
-    history:[], gameOver:false, won:false,
+    history:[], gameOver:false, won:false, v:2,
   };
   s=state; tab="panoramica";
   state.squad.forEach(p=>{p.wage=pWage(p);p.value=pVal(p);});
   pushNews("Benvenuto alla Zeta Milano! Stagione 2026/27 — Prima Categoria, Girone B (Lombardia). Obiettivo: portare il club in Serie A. Sei tu il DS.");
   s.news.unshift({t:"Comunicato societario · 2026/27", m:"Il FC Zeta Milano comunica che <b>Fabio Eguelfi</b>, <b>Stefano Lanini</b> e <b>Simone Domenico Carollo</b> hanno lasciato la rosa e non fanno più parte della squadra per la nuova stagione. La società ringrazia i tre calciatori per il contributo dato e augura loro il meglio per il prosieguo di carriera. La rosa viene rinnovata di conseguenza."});
+  applyCoachExit(); // terremoto: Mascetti si dimette, panchina provvisoria al DS (utente)
+  s.news.unshift({t:"Comunicato ufficiale · 2026/27", m:"<b>LA ZETA MILANO SALUTA MISTER MASCETTI: IL TECNICO RASSEGNA LE DIMISSIONI</b><br>Al termine della sfida di ieri persa 1-3 contro la Virtus Cermenate, <b>Fabio Mascetti</b> ha comunicato alla squadra e alla dirigenza la propria decisione di lasciare l'incarico di allenatore della Prima Squadra. Una scelta maturata a caldo, al termine di un dibattito dai toni accesi con il direttore sportivo Stefano De Vita. Tra i due si sarebbe arrivati a un punto di rottura, rendendo ormai complicata la prosecuzione del rapporto. Il saluto al presidente ZW JACKSON è arrivato con una stretta di mano e la frase: <i>«lascio questa squadra di merda, falla allenare al tuo direttore sportivo dato che è così bravo»</i>. La panchina passa provvisoriamente al direttore sportivo."});
   generateLeague();
   save();
 }
 function save(){const id=getActiveId();if(id&&state){try{localStorage.setItem(saveKeyFor(id),JSON.stringify(state));}catch(e){}}if(cloudReady()&&cloudUser&&state){cloudSave();}}
-function load(){const id=getActiveId();if(!id)return false;try{const raw=localStorage.getItem(saveKeyFor(id));if(!raw)return false;state=JSON.parse(raw);s=state;return true;}catch(e){return false;}}
+function migrateState(){
+  if(!s)return;
+  if(!s.v||s.v<2){
+    // Salvataggio pre-terremoto: Mascetti ancora in panchina → panchina provvisoria al DS.
+    const idx=s.staff?s.staff.findIndex(x=>x.effect==='tactic'&&x.name==='Fabio Mascetti'):-1;
+    if(idx>=0){ s.staff[idx]={role:"Allenatore",effect:"tactic",name:userName(),rating:62,wage:0,real:false,interim:true,note:"Allenatore provvisorio — il DS alla guida della squadra"}; }
+    s.v=2;
+    s.coachExitPending=false; // niente banner per i salvataggi migrati
+  }
+}
+function load(){const id=getActiveId();if(!id)return false;try{const raw=localStorage.getItem(saveKeyFor(id));if(!raw)return false;state=JSON.parse(raw);s=state;migrateState();return true;}catch(e){return false;}}
 function resetSave(){closeModal();const id=getActiveId();if(id){try{localStorage.removeItem(saveKeyFor(id));}catch(e){}}newGame();render();}
 
 function pushNews(msg){s.news.unshift({t:"Sett. "+s.week+" · "+s.season, m:msg});if(s.news.length>60)s.news.pop();}
@@ -890,10 +922,10 @@ function renderStaff(){
   document.getElementById('app').innerHTML=`
   <div class="card">
     <h3>🧑‍💼 Staff & Dirigenza</h3>
-    <div class="sub">Lo staff reale della Zeta Milano 2026/27 (allenatore Fabio Mascetti, GM Cristian Brocchi, ecc.). Le figure societarie sono fisse; puoi assumere/licenziare collaboratori tecnici.</div>
+    <div class="sub">Lo staff della Zeta Milano 2026/27 (allenatore: <b>${esc(coachName())}</b>${staffBy('tactic')&&staffBy('tactic').interim?' — provvisorio':''}, GM Cristian Brocchi, ecc.). Le figure societarie sono fisse; puoi assumere/licenziare collaboratori tecnici e <b>cambiare l'allenatore</b>.</div>
     <div class="row" style="margin-bottom:10px"><div class="tag">Ingaggi staff/sett: €${fmt(staffWageTotal())}</div>
       <div class="tag">Rating allenatore: ${coachRating()}</div><div class="tag">Prep. atletico: ${athleticRating()}</div>
-      <div class="tag">DS: ${dsRating()}</div><button class="btn sm primary" style="margin-left:auto" onclick="openHireStaff()">+ Assumi collaboratore</button></div>
+      <div class="tag">DS: ${dsRating()}</div><button class="btn sm" style="margin-left:auto" onclick="openHireCoach()">🔄 Cambia allenatore</button><button class="btn sm primary" onclick="openHireStaff()">+ Assumi collaboratore</button></div>
     <table><thead><tr><th>Ruolo</th><th>Nome</th><th class="num">Rating</th><th class="num">Ingaggio</th><th>Effetto</th><th></th></tr></thead>
     <tbody>${rows}</tbody></table>
   </div>`;
@@ -907,8 +939,30 @@ function openHireStaff(){
     <button class="btn sm block" style="margin-top:10px" onclick="closeModal()">Annulla</button>`,true);
   window._hireCands=cands;
 }
-function hireStaff(i){const c=window._hireCands[i];if(s.staff.some(x=>x.role===c.role&&x.effect===c.effect)){s.staff=s.staff.filter(x=>!(x.role===c.role&&x.effect===c.effect));}s.staff.push({...c,real:false});pushNews(`Assunto ${c.name} come ${c.role} (rating ${c.rating}).`);save();closeModal();render();}
+function hireStaff(i){const c=window._hireCands[i];if(s.staff.some(x=>x.role===c.role&&x.effect===c.effect)){s.staff=s.staff.filter(x=>!(x.role===c.role&&x.effect===c.effect));}s.staff.push({...c,real:false});if(c.effect==='tactic'){s.coachAuth=clamp((s.coachAuth||68)+6,0,100);pushNews(`Nuovo allenatore: <b>${c.name}</b> sulla panchina della Zeta Milano (rating ${c.rating}). L'interim torna al ruolo di DS. Autorità allenatore +6.`);}else{pushNews(`Assunto ${c.name} come ${c.role} (rating ${c.rating}).`);}save();closeModal();render();}
 function fireStaff(name){s.staff=s.staff.filter(x=>x.name!==name);pushNews(`Licenziato ${name} dallo staff.`);save();render();}
+function openHireCoach(){
+  const cur=staffBy('tactic');
+  const cands=Array.from({length:3},()=>({role:"Allenatore",effect:"tactic",rating:rand(60,78),wage:rand(900,1800),name:genPersonName(),note:"Tecnico libero"})).sort((a,b)=>b.rating-a.rating);
+  showModal(`<h3>🔄 Cambia allenatore</h3>
+    <div class="sub">Panchina attuale: <b>${cur?esc(cur.name):'—'}</b>${cur&&cur.interim?' (provvisoria)':''}. Scegli un nuovo tecnico tra i candidati liberi, oppure scrivi il nome.</div>
+    <div class="choices">${cands.map((c,i)=>`<button class="choice" onclick="hireStaff(${i})"><b>${c.role} — ${esc(c.name)}</b> <span class="ovr-pill">${c.rating}</span><small>€${fmt(c.wage)}/sett · rating tecnico</small></button>`).join('')}</div>
+    <div style="margin-top:14px"><div class="muted small" style="margin-bottom:6px">Oppure scrivi il nome di un allenatore a scelta:</div>
+      <div class="row" style="gap:8px"><input id="cust-coach" placeholder="Es. Carlo Ancelotti" maxlength="40" style="font-size:15px;padding:11px;flex:1">
+      <button class="btn sm primary" onclick="hireCustomCoach()">Assumi</button></div></div>
+    <button class="btn sm block" style="margin-top:12px" onclick="closeModal()">Annulla</button>`,true);
+  window._hireCands=cands;
+}
+function hireCustomCoach(){
+  const nm=(document.getElementById('cust-coach')&&document.getElementById('cust-coach').value||'').trim();
+  if(!nm){alertToast('Scrivi il nome del nuovo allenatore.');return;}
+  if(s.staff.some(x=>x.role==='Allenatore'&&x.effect==='tactic')){s.staff=s.staff.filter(x=>!(x.role==='Allenatore'&&x.effect==='tactic'));}
+  const rt=rand(62,76), wg=rand(900,1600);
+  s.staff.push({role:"Allenatore",effect:"tactic",name:nm,rating:rt,wage:wg,real:false,note:"Nuovo allenatore (a scelta del DS)"});
+  s.coachAuth=clamp((s.coachAuth||68)+6,0,100);
+  pushNews(`Nuovo allenatore: <b>${esc(nm)}</b> sulla panchina della Zeta Milano (rating ${rt}). L'interim torna al ruolo di DS. Autorità allenatore +6.`);
+  save();closeModal();render();
+}
 
 /* ============================== TAB: ALLENAMENTO ============================== */
 function renderAllenamento(){
@@ -1178,22 +1232,26 @@ function triggerEvent(){
   if(ev.needsInvestor&&s.investors.length)investor=pick(s.investors);
   if(ev.id==='offer_player')value=Math.round((targetPlayer?pVal(targetPlayer):0)*(0.7+Math.random()*0.4));
   if(ev.id==='injury')weeks=Math.max(1,rand(2,5)-Math.floor(s.facilities.medical/2));
+  const _cn=coachName();
   const text=ev.text
     .replace('{P}',targetPlayer?targetPlayer.name:'un giocatore')
     .replace('{V}',fmt(value))
     .replace('{W}',weeks)
     .replace('{S}',sponsor?sponsor.name:'lo sponsor')
-    .replace('{I}',investor?investor.name:'l\'investitore');
+    .replace('{I}',investor?investor.name:'l\'investitore')
+    .replace('{COACH}',_cn);
   window._curEvent={ev,targetPlayer,sponsor,investor,value,weeks};
-  const choices=ev.choices.map((c,i)=>`<button class="choice" onclick="resolveEvent(${i})"><b>${c.label}</b><small>${c.sub||''}</small></button>`).join('');
-  showModal(`<div class="notice warn" style="margin-bottom:10px">📰 EVENTO DELLA SETTIMANA</div><h2>${ev.title}</h2><p style="margin-top:6px">${text}</p><div class="choices">${choices}</div>`,true);
+  const choices=ev.choices.map((c,i)=>`<button class="choice" onclick="resolveEvent(${i})"><b>${c.label.replace('{COACH}',_cn)}</b><small>${(c.sub||'').replace('{COACH}',_cn)}</small></button>`).join('');
+  showModal(`<div class="notice warn" style="margin-bottom:10px">📰 EVENTO DELLA SETTIMANA</div><h2>${ev.title.replace('{COACH}',_cn)}</h2><p style="margin-top:6px">${text}</p><div class="choices">${choices}</div>`,true);
 }
 function resolveEvent(i){
   const C=window._curEvent;if(!C)return;
   const ch=C.ev.choices[i];
+  const _cn=coachName();
   let res;
   try{res=ch.fn(C.targetPlayer,C.value,C.weeks,C.sponsor,C.investor);}catch(e){res="Gestito.";}
-  pushNews('Evento — '+C.ev.title+': '+res);
+  res=String(res).replace('{COACH}',_cn);
+  pushNews('Evento — '+C.ev.title.replace('{COACH}',_cn)+': '+res);
   closeModal();
   save();
   playAndAdvance();
@@ -1347,7 +1405,16 @@ function showSeasonModal(d){
 
 /* ============================== UI EXTRA: START / PROFILI / GUIDA / MENU / SHARE / REAL ============================== */
 function showStart(){renderStartContent();document.getElementById('start').classList.remove('hide');}
-function hideStart(){document.getElementById('start').classList.add('hide');}
+function showCoachExitBanner(){
+  const b=document.getElementById('win-box');
+  b.innerHTML=`<div class="notice bad" style="margin-bottom:12px">📰 COMUNICATO UFFICIALE</div>
+    <h1 style="font-size:30px;background:linear-gradient(90deg,#f87171,#fbbf24);-webkit-background-clip:text;background-clip:text;color:transparent">MASCETTI SI DIMETTE</h1>
+    <p style="font-size:15px;margin:12px 0;max-width:560px;text-align:left;line-height:1.5"><b>LA ZETA MILANO SALUTA MISTER MASCETTI: IL TECNICO RASSEGNA LE DIMISSIONI</b><br>Al termine della sfida di ieri persa 1-3 contro la Virtus Cermenate, <b>Fabio Mascetti</b> ha comunicato alla squadra e alla dirigenza la propria decisione di lasciare l'incarico di allenatore della Prima Squadra. Una scelta maturata a caldo, al termine di un dibattito dai toni accesi con il direttore sportivo Stefano De Vita. Tra i due si sarebbe arrivati a un punto di rottura, rendendo ormai complicata la prosecuzione del rapporto. Il saluto al presidente ZW JACKSON è arrivato con una stretta di mano e la frase: <i>«lascio questa squadra di merda, falla allenare al tuo direttore sportivo dato che è così bravo»</i>.</p>
+    <div class="notice info" style="margin:10px 0">La panchina passa <b>provvisoriamente a te</b> (${esc(userName())}). Nel tab <b>Staff</b> puoi ingaggiare un nuovo allenatore (dal mercato o scrivendone il nome).</div>
+    <button class="btn primary" style="margin-top:10px" onclick="document.getElementById('win-banner').classList.remove('show')">Procedi</button>`;
+  document.getElementById('win-banner').classList.add('show');
+}
+function hideStart(){document.getElementById('start').classList.add('hide');if(s&&s.coachExitPending){s.coachExitPending=false;save();showCoachExitBanner();}}
 let authMode='signup';
 function renderStartContent(){
   const box=document.getElementById('start-btns');
@@ -1401,15 +1468,16 @@ async function doAuth(){
   const pass=(document.getElementById('au-pass')?.value||'');
   if(!email||!pass){alertToast('Inserisci email e password.');return;}
   if(pass.length<6){alertToast('La password deve avere almeno 6 caratteri.');return;}
-  let res;
+  let res,signupName=null;
   if(authMode==='signup'){
-    const name=(document.getElementById('au-name')?.value||'').trim()||email.split('@')[0];
-    res=await cloudSignUp(email,pass,name);
+    signupName=(document.getElementById('au-name')?.value||'').trim()||email.split('@')[0];
+    res=await cloudSignUp(email,pass,signupName);
   } else {
     res=await cloudSignIn(email,pass);
   }
   if(res.error){ alertToast('Errore: '+(res.error.message||res.error)); return; }
   cloudUser=res.user;
+  if(signupName){try{localStorage.setItem('zm_cloud_name',signupName);}catch(e){}}
   const loaded=await cloudLoad();
   if(!loaded){ newGame(); }
   render(); hideStart();
